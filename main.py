@@ -5,6 +5,50 @@ pieniadze = 5000
 szansa = 1000
 dlug = 0
 rrso = 20
+def blackjack():
+    global pieniadze
+    karty_krupiera = random.randint(2, 11) + random.randint(2, 11)
+    karty_gracza = random.randint(2, 11) + random.randint(2, 11)
+    while True:
+        if (karty_gracza == 21 and karty_krupiera != 21):
+            print(f"O kurde wygrales. (krupier miał {karty_krupiera} kart, a ty {karty_gracza})")
+            pieniadze += 500
+            break
+        elif (karty_gracza != 21 and karty_krupiera == 21):
+            print(f"Przegrales. (krupier miał {karty_krupiera} kart, a ty {karty_gracza})")
+            pieniadze -= 250
+            break
+        elif (karty_gracza == 21 and karty_krupiera == 21):
+            print(f"Remis (krupier miał {karty_krupiera} kart, a ty {karty_gracza})")
+            break
+        if (karty_gracza > 21):
+            print(f"Przegrales (krupier miał {karty_krupiera} kart, a ty {karty_gracza})")
+            pieniadze -= 250
+            break
+        if (karty_krupiera > 21):
+            print(f"Wygrales (krupier miał {karty_krupiera} kart, a ty {karty_gracza})")
+            pieniadze += 500
+            break
+        print("Karty krupiera: ?")
+        print(f"Twoje karty: {karty_gracza}")
+        print("Bierzesz czy stoisz?")
+        odpowiedz = input("Odpowiedz (stoje/biore): ")
+        if (odpowiedz == "biore"):
+            karty_gracza += random.randint(2, 11)
+            if (karty_krupiera in [18, 19]):
+                if (random.randint(1, 2) == 2):
+                    karty_krupiera = 21
+            else:
+                if (random.randint(1, 2) == 1):
+                    karty_krupiera += random.randint(2, 11)
+        if (odpowiedz == "stoje"):
+            if (karty_krupiera in [18, 19]):
+                if (random.randint(1, 2) == 2):
+                    karty_krupiera = 21
+            else:
+                if (random.randint(1, 2) == 1):
+                    karty_krupiera += random.randint(2, 11)
+
 def oddaj():
     global pieniadze
     try:
@@ -37,7 +81,7 @@ def pozyczka():
                 print(f"Ok, RRSO to {rrso}%")
                 pieniadze = pieniadze + ilosc
                 dlug = dlug + (ilosc * (rrso / 100 + 1))
-                print(f"Twoj aktualny dlug to: {dlug}\n")
+                print(f"Twoj aktualny dlug to: {round(dlug)}\n")
             else:
                 print("Nie mozesz wyplacic takiej kwoty\n")
         else:
@@ -47,11 +91,20 @@ def pozyczka():
 
 def zmien_szanse():
     global szansa
-    szansa = round(szansa - 5)
+    if (500 <= szansa <= 1000):
+        szansa = round(szansa - 5)
+    if (300 <= szansa <= 499):
+        szansa = round(szansa - 4)
+    if (200 <= szansa <= 299):
+        szansa = round(szansa - 3)
+    if (10 <= szansa <= 199):
+        szansa = round(szansa - 2)
+    else:
+        szansa = round(szansa)        
 
 def praca():
-    print("Pracujesz wiec teraz msuisz poczekac 24 sekundy na peiniadze")
-    time.sleep(24)
+    print("Pracujesz wiec teraz msuisz poczekac 10 sekund na peiniadze")
+    time.sleep(10)
     print("Ok masz pieniadze")
     pieniadze += 150
 
@@ -71,16 +124,17 @@ def main():
                     dlug = dlug - splacono
                     print("Pomyslnie splacono 2% dlugu.")
                     # Bo nie chce mi sie pisac systemu spłacania
-            print("Kasyno")
+            print("$$$ KASYNO $$$")
             print("Wybierz sobie liczbe bo to kasyno i jak zgadniesz liczbe 0-9 to wygrasz pieniadze")
             liczba = input("Jaka? (wpisz sklep by coś kupic): ")
             if (liczba == "sklep"):
                 while True:
                     print("Witaj w sklepie")
-                    print("Wpisz 'szansa' by zwiekszyc swoja szanse w kasynie o 0.5% (za 300 monet)")
+                    print("Wpisz 'szansa' by zwiekszyc swoja szanse w kasynie o 0.5% (za 300zl)")
                     print("Wpisz 'pozyczka' by pozyczyc pieniadze")
                     print("Wpisz 'oddaj' by oddac pieniadze w rece panstwowe")
                     print("Wpisz 'praca' by pracowac")
+                    print("Wpisz 'blackjack' by zagrac w blackjacka (250zl)")
                     co = input(": ")
                     if (co == "szansa"):
                         if (pieniadze - 300 <= 0):
@@ -97,6 +151,8 @@ def main():
                         oddaj()
                     elif (co == "praca"):
                         praca()
+                    elif (co == "blackjack"):
+                        blackjack()
                     else:
                         print("ok")
                         break
