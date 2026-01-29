@@ -112,8 +112,16 @@ def zmien_szanse():
 
 def praca():
     global pieniadze
-    print("Pracujesz wiec teraz msuisz poczekac 10 sekund na peiniadze")
-    time.sleep(10)
+    nadgodziny = None
+    print("Pracujesz")
+    if (random.randint(1, 2) == 1):
+        nadgodziny = True
+    else:
+        nadgodziny = False
+    time.sleep(8)
+    if (nadgodziny):
+        print("Pracujesz na nadgodziny wiec poczekaj jeszcze")
+        time.sleep(4)
     pieniadze_wypraconwane = random.randint(0, 1000)
     if (pieniadze_wypraconwane > 0):
         print(f"Ok masz pieniadze ({pieniadze_wypraconwane}zł)")
