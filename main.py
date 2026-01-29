@@ -7,47 +7,48 @@ dlug = 0
 rrso = 20
 def blackjack():
     global pieniadze
-    karty_krupiera = random.randint(2, 11) + random.randint(2, 11)
-    karty_gracza = random.randint(2, 11) + random.randint(2, 11)
-    while True:
-        if (karty_gracza == 21 and karty_krupiera != 21):
-            print(f"O kurde wygrales. (krupier miał {karty_krupiera} kart, a ty {karty_gracza})")
-            pieniadze += 500
-            break
-        elif (karty_gracza != 21 and karty_krupiera == 21):
-            print(f"Przegrales. (krupier miał {karty_krupiera} kart, a ty {karty_gracza})")
-            pieniadze -= 250
-            break
-        elif (karty_gracza == 21 and karty_krupiera == 21):
-            print(f"Remis (krupier miał {karty_krupiera} kart, a ty {karty_gracza})")
-            break
-        if (karty_gracza > 21):
-            print(f"Przegrales (krupier miał {karty_krupiera} kart, a ty {karty_gracza})")
-            pieniadze -= 250
-            break
-        if (karty_krupiera > 21):
-            print(f"Wygrales (krupier miał {karty_krupiera} kart, a ty {karty_gracza})")
-            pieniadze += 500
-            break
-        print("Karty krupiera: ?")
-        print(f"Twoje karty: {karty_gracza}")
-        print("Bierzesz czy stoisz?")
-        odpowiedz = input("Odpowiedz (stoje/biore): ")
-        if (odpowiedz == "biore"):
-            karty_gracza += random.randint(2, 11)
-            if (karty_krupiera in [18, 19]):
-                if (random.randint(1, 2) == 2):
-                    karty_krupiera = 21
-            else:
-                if (random.randint(1, 2) == 1):
-                    karty_krupiera += random.randint(2, 11)
-        if (odpowiedz == "stoje"):
-            if (karty_krupiera in [18, 19]):
-                if (random.randint(1, 2) == 2):
-                    karty_krupiera = 21
-            else:
-                if (random.randint(1, 2) == 1):
-                    karty_krupiera += random.randint(2, 11)
+    if (pieniadze >= 250):
+        karty_krupiera = random.randint(2, 11) + random.randint(2, 11)
+        karty_gracza = random.randint(2, 11) + random.randint(2, 11)
+        while True:
+            if (karty_gracza == 21 and karty_krupiera != 21):
+                print(f"O kurde wygrales. (krupier miał {karty_krupiera} kart, a ty {karty_gracza})")
+                pieniadze += 500
+                break
+            elif (karty_gracza != 21 and karty_krupiera == 21):
+                print(f"Przegrales. (krupier miał {karty_krupiera} kart, a ty {karty_gracza})")
+                pieniadze -= 250
+                break
+            elif (karty_gracza == 21 and karty_krupiera == 21):
+                print(f"Remis (krupier miał {karty_krupiera} kart, a ty {karty_gracza})")
+                break
+            if (karty_gracza > 21):
+                print(f"Przegrales (krupier miał {karty_krupiera} kart, a ty {karty_gracza})")
+                pieniadze -= 250
+                break
+            if (karty_krupiera > 21):
+                print(f"Wygrales (krupier miał {karty_krupiera} kart, a ty {karty_gracza})")
+                pieniadze += 500
+                break
+            print("Karty krupiera: ?")
+            print(f"Twoje karty: {karty_gracza}")
+            print("Bierzesz czy stoisz?")
+            odpowiedz = input("Odpowiedz (stoje/biore): ")
+            if (odpowiedz == "biore"):
+                karty_gracza += random.randint(2, 11)
+                if (karty_krupiera in [18, 19]):
+                    if (random.randint(1, 2) == 2):
+                        karty_krupiera = 21
+                else:
+                    if (random.randint(1, 2) == 1):
+                        karty_krupiera += random.randint(2, 11)
+            elif (odpowiedz == "stoje"):
+                if (karty_krupiera in [18, 19]):
+                    if (random.randint(1, 2) == 2):
+                        karty_krupiera = 21
+                else:
+                    if (random.randint(1, 2) == 1):
+                        karty_krupiera += random.randint(2, 11)
 
 def oddaj():
     global pieniadze
@@ -103,10 +104,37 @@ def zmien_szanse():
         szansa = round(szansa)        
 
 def praca():
+    global pieniadze
     print("Pracujesz wiec teraz msuisz poczekac 10 sekund na peiniadze")
     time.sleep(10)
-    print("Ok masz pieniadze")
-    pieniadze += 150
+    pieniadze_wypraconwane = random.randint(0, 1000)
+    if (pieniadze_wypraconwane > 0):
+        print(f"Ok masz pieniadze ({pieniadze_wypraconwane}zł)")
+        pieniadze += pieniadze_wypraconwane
+    else:
+        print("HAHAHA PRACODAWCA CIE OKRADL")
+        print("CO ROBISZ")
+        odpowiedz = input("Odpowiedz (gonie/nic): ")
+        if (odpowiedz == "gonie"):
+            print("Gonisz pracodawce")
+            time.sleep(3)
+            udalo_sie = None
+            if (random.randint(1, 3) == 3): 
+                udalo_sie = True 
+            else: 
+                udalo_sie = False
+            if (udalo_sie):
+                print("Udalo sie")
+                pieniadze += 5000
+            else:
+                print("Nie udalo sie")
+                if (pieniadze >= 500):
+                    pieniadze -= 500
+                else:
+                    pieniadze = 0
+        elif (odpowiedz == "nic"):
+            print("Ok, pracodawca uciekl.")
+                
 
 def main():
     global pieniadze
