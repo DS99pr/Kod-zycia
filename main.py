@@ -2,6 +2,7 @@ import time
 import random
 
 pieniadze = 5000
+realna_szansa = 1000
 szansa = 1000
 dlug = 0
 rrso = 20
@@ -92,16 +93,22 @@ def pozyczka():
 
 def zmien_szanse():
     global szansa
+    global realna_szansa
     if (500 <= szansa <= 1000):
         szansa = round(szansa - 5)
+        realna_szansa = round(realna_szansa - 5)
     elif (300 <= szansa <= 499):
         szansa = round(szansa - 4)
+        realna_szansa = round(realna_szansa - 4)
     elif (200 <= szansa <= 299):
         szansa = round(szansa - 3)
+        realna_szansa = round(realna_szansa - 3)
     elif (10 <= szansa <= 199):
         szansa = round(szansa - 2)
+        realna_szansa = round(realna_szansa - 2)
     else:
-        szansa = round(szansa)        
+        szansa = round(szansa)      
+        realna_szansa = round(realna_szansa)  
 
 def praca():
     global pieniadze
@@ -153,6 +160,7 @@ def main():
                     print("Pomyslnie splacono 2% dlugu.")
                     # Bo nie chce mi sie pisac systemu spłacania
             print("$$$ KASYNO $$$")
+            print(f"Masz szanse 1/{szansa}")
             print("Wybierz sobie liczbe bo to kasyno i jak zgadniesz liczbe 0-9 to wygrasz pieniadze")
             liczba = input("Jaka? (wpisz sklep by coś kupic): ")
             if (liczba == "sklep"):
@@ -165,7 +173,7 @@ def main():
                     print("Wpisz 'blackjack' by zagrac w blackjacka (250zl)")
                     co = input(": ")
                     if (co == "szansa"):
-                        if (pieniadze - 300 <= 0):
+                        if ((pieniadze - 300) < 0):
                             print("Nie stac cie")
                         else:    
                             print("Ok")
@@ -193,12 +201,13 @@ def main():
                     time.sleep(1)
                     print("Dobra\n")
                     time.sleep(1)
-                    if(random.randint(1, szansa) != (round(szansa * 0.84))):
+                    if(random.randint(1, realna_szansa) != (round(realna_szansa * 0.84))):
                         print("Oj niestety nie wygrales przykro mi")
                         pieniadze -= 100
                     else:
                         print("O KURDE JACKPOT")
                         pieniadze = pieniadze + 100000
+                        realna_szansa += 50
                 else:
                     print("Nie stac cie juz wiecej na kasyno, wez pozyczke w sklepie")
     except KeyboardInterrupt:
