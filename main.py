@@ -94,16 +94,16 @@ def pozyczka():
 def zmien_szanse():
     global szansa
     global realna_szansa
-    if (500 <= szansa <= 1000):
+    if (500 <= realna_szansa <= 1000):
         szansa = round(szansa - 5)
         realna_szansa = round(realna_szansa - 5)
-    elif (300 <= szansa <= 499):
+    elif (300 <= realna_szansa <= 499):
         szansa = round(szansa - 4)
         realna_szansa = round(realna_szansa - 4)
-    elif (200 <= szansa <= 299):
+    elif (200 <= realna_szansa <= 299):
         szansa = round(szansa - 3)
         realna_szansa = round(realna_szansa - 3)
-    elif (10 <= szansa <= 199):
+    elif (10 <= realna_szansa <= 199):
         szansa = round(szansa - 2)
         realna_szansa = round(realna_szansa - 2)
     else:
