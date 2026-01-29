@@ -93,11 +93,11 @@ def zmien_szanse():
     global szansa
     if (500 <= szansa <= 1000):
         szansa = round(szansa - 5)
-    if (300 <= szansa <= 499):
+    elif (300 <= szansa <= 499):
         szansa = round(szansa - 4)
-    if (200 <= szansa <= 299):
+    elif (200 <= szansa <= 299):
         szansa = round(szansa - 3)
-    if (10 <= szansa <= 199):
+    elif (10 <= szansa <= 199):
         szansa = round(szansa - 2)
     else:
         szansa = round(szansa)        
