@@ -114,6 +114,27 @@ def blackjack():
     else:
         print("Nie stac cie na blackjacka")
 
+def splac():
+    global pieniadze
+    global dlug
+    try:
+        if (dlug > 0):
+            print("Ile chcesz splacic?")
+            chce = int(input("Chce splacic: "))
+            if (chce > dlug):
+                print("To wiecej niz dlug, lecz po prostu splacimy całość.")
+                pieniadze -= dlug
+                dlug = 0
+                print("Okej. Dziekujemy za splacenie dlugu")
+            else:
+                pieniadze -= chce
+                print(f"Dobrze. Splacono {chce}/{round(dlug)} zlotych dlugu.")
+                dlug -= chce
+        else:
+            print("Nie masz dlugu xd")
+    except ValueError:
+        print("Wpiszesz liczbe")
+
 def oddaj():
     global pieniadze
     global tax_trans
@@ -269,7 +290,7 @@ def main():
                     pieniadze -= pieniadze / 10
                     print(f"Zabrano podatek {round(pieniadze / 10)}zł. (więcej na inne)")
                 else:
-                    dlug = 1000
+                    dlug += 1000
                     print("Nałożono dług 1000 złotych ze względu na brak wystarczającej ilości pieniędzy na koncie, by zapłacić podatki.")
             print("$$$ KASYNO $$$")
             print(f"Masz szanse 1/{szansa}")
@@ -317,6 +338,7 @@ def main():
                     print("Wpisz 'oddaj' by oddac pieniadze w rece panstwowe")
                     print("Wpisz 'praca' by pracowac")
                     print("Wpisz 'podatki' by zobaczyc informacje o podatkach.")
+                    print("Wpisz 'splac' by splacic dlug")
                     co = input(": ")
                     if (co == "oddaj"):
                         print("Oj tak")
@@ -329,6 +351,8 @@ Podatki zabierają ci 10% twojego stanu bankowego co 30 transakcji.
 Sprawdzenie informacji o podatkach NIE liczy się jako transakcja.
 W momentu niskiego stanu konta, państwo nałoży dług w ilości 1000 złotych.
 """)
+                    elif (co == "splac"):
+                        splac()
                     else:
                         print("ok")
                         break
