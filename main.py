@@ -5,11 +5,13 @@ pieniadze = 5000
 realna_szansa = 1000
 szansa = 1000
 dlug = 0
-rrso = 20
+rrso_pozyczka = 20
+rrso_kredyt = 200
 tax_trans = 0
 
 def ruletka():
     global pieniadze
+    global tax_trans
     try:
         if (pieniadze >= 250):
             print("""Jaki tryb? (kolor/pole)""")
@@ -57,6 +59,7 @@ B - Czarny
                         pieniadze -= 250
             else:
                 print("Musisz podac poprawny tryb")
+            tax_trans += 1
         else:
             print("Nie stac cie na ruletke")
     except ValueError:
@@ -132,10 +135,34 @@ def oddaj():
     except ValueError:
         print("Wpisz liczbe")
 
+def kredyt():
+    global pieniadze
+    global rrso_kredyt
+    global tax_trans
+    global dlug
+    try:
+        if (pieniadze > 10001):
+            mozliwosci = [15000, 25000, 50000]
+            print("Okej...")
+            print("Ile chcesz pozyczyc? (15000, 25000, 50000)")
+            ilosc = int(input("Chce pozyczyc: "))
+            if (ilosc in mozliwosci):
+                print(f"Ok, RRSO to {rrso_kredyt}%")
+                pieniadze = pieniadze + ilosc
+                dlug = dlug + (ilosc * (rrso_kredyt / 100 + 1))
+                tax_trans += 1
+                print(f"Twoj aktualny dlug to: {round(dlug)}\n")
+            else:
+                print("Nie mozesz wyplacic takiej kwoty\n")
+        else:
+            print("Nie stac cie na kredyt, potrzebujesz 10001zł.")
+    except ValueError:
+        print("Wpisz liczbe")
+
 def pozyczka():
     global pieniadze
     global dlug
-    global rrso
+    global rrso_pozyczka
     global tax_trans
     try:
         if (pieniadze < 100):
@@ -143,9 +170,9 @@ def pozyczka():
             print("Ile chcesz pozyczyc? (500, 1000, 2500, 10000)")
             ilosc = int(input("Chce pozyczyc: "))
             if (ilosc in mozliwosci):
-                print(f"Ok, RRSO to {rrso}%")
+                print(f"Ok, RRSO to {rrso_pozyczka}%")
                 pieniadze = pieniadze + ilosc
-                dlug = dlug + (ilosc * (rrso / 100 + 1))
+                dlug = dlug + (ilosc * (rrso_pozyczka / 100 + 1))
                 tax_trans += 1
                 print(f"Twoj aktualny dlug to: {round(dlug)}\n")
             else:
@@ -253,6 +280,7 @@ def main():
                     print("Witaj w sklepie")
                     print("Wpisz 'szansa' by zwiekszyc swoja szanse w kasynie o 0.5% (za 300zl)")
                     print("Wpisz 'pozyczka' by pozyczyc pieniadze")
+                    print("Wpisz 'kredyt' by wziac kredyt")
                     co = input(": ")
                     if (co == "szansa"):
                         if ((pieniadze - 300) < 0):
@@ -264,11 +292,9 @@ def main():
                     elif (co == "pozyczka"):
                         print("Ok")
                         pozyczka()
-                    elif (co == "oddaj"):
-                        print("Oj tak")
-                        oddaj()
-                    elif (co == "praca"):
-                        praca()
+                    elif (co == "kredyt"):
+                        print("Ok")
+                        kredyt()
                     else:
                         print("ok")
                         break
