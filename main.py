@@ -1,19 +1,20 @@
 import time
 import random
 
-pieniadze = 5000
-realna_szansa = 1000
-szansa = 1000
-dlug = 0
-rrso_pozyczka = 20
-rrso_kredyt = 200
-tax_trans = 0
+class Kasyno:
+    def __init__(self):
+        self.pieniadze = 5000
+        self.realna_szansa = 1000
+        self.szansa = 1000
+        self.dlug = 0
+        self.rrso_pozyczka = 20
+        self.rrso_kredyt = 200
+        self.tax_trans = 0
 
 def ruletka():
-    global pieniadze
-    global tax_trans
+    k = Kasyno()
     try:
-        if (pieniadze >= 250):
+        if (k.pieniadze >= 250):
             print("""Jaki tryb? (kolor/pole)""")
             tryb = input("Tryb: ")
             if (tryb in ["kolor", "pole"]):
@@ -35,13 +36,13 @@ B - Czarny
                             kolor == "B" and trafione in [2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 29, 28, 31, 33, 35]
                         ):
                             print(f"Wygrales 500zł!")
-                            pieniadze += 250
+                            k.pieniadze += 250
                         elif (kolor == "G" and trafione == 0):
                             print(f"Wow!! Wygrales {250 * 36}zł")
-                            pieniadze += (250 * 36)
+                            k.pieniadze += (250 * 36)
                         else:
                             print("Przegrales")
-                            pieniadze -= 250
+                            k.pieniadze -= 250
                     else:
                         print("Ten kolor nie istnieje")
                 elif (tryb == "pole"):
@@ -53,44 +54,43 @@ B - Czarny
                     if (pole == trafione):
                         wygrane = 250 * 36
                         print(f"Udalo ci sie!! Wygrywasz {wygrane}zł")
-                        pieniadze += wygrane
+                        k.pieniadze += wygrane
                     else:
                         print("Przegrales")
-                        pieniadze -= 250
+                        k.pieniadze -= 250
             else:
                 print("Musisz podac poprawny tryb")
-            tax_trans += 1
+            k.tax_trans += 1
         else:
             print("Nie stac cie na ruletke")
     except ValueError:
         print("Musisz wpisac poprawne pole!!")
 
 def blackjack():
-    global pieniadze
-    global tax_trans
-    if (pieniadze >= 250):
-        tax_trans += 1
+    k = Kasyno()
+    if (k.pieniadze >= 250):
+        k.tax_trans += 1
         karty_krupiera = random.randint(2, 11) + random.randint(2, 11)
         karty_gracza = random.randint(2, 11) + random.randint(2, 11)
         while True:
             if (karty_gracza == 21 and karty_krupiera != 21):
                 print(f"O kurde wygrales. (krupier miał {karty_krupiera} kart, a ty {karty_gracza})")
-                pieniadze += 500
+                k.pieniadze += 500
                 break
             elif (karty_gracza != 21 and karty_krupiera == 21):
                 print(f"Przegrales. (krupier miał {karty_krupiera} kart, a ty {karty_gracza})")
-                pieniadze -= 250
+                k.pieniadze -= 250
                 break
             elif (karty_gracza == 21 and karty_krupiera == 21):
                 print(f"Remis (krupier miał {karty_krupiera} kart, a ty {karty_gracza})")
                 break
             if (karty_gracza > 21):
                 print(f"Przegrales (krupier miał {karty_krupiera} kart, a ty {karty_gracza})")
-                pieniadze -= 250
+                k.pieniadze -= 250
                 break
             if (karty_krupiera > 21):
                 print(f"Wygrales (krupier miał {karty_krupiera} kart, a ty {karty_gracza})")
-                pieniadze += 500
+                k.pieniadze += 500
                 break
             print("Karty krupiera: ?")
             print(f"Twoje karty: {karty_gracza}")
@@ -115,31 +115,29 @@ def blackjack():
         print("Nie stac cie na blackjacka")
 
 def splac():
-    global pieniadze
-    global dlug
+    k = Kasyno()
     try:
-        if (dlug > 0):
+        if (k.dlug > 0):
             print("Ile chcesz splacic?")
             chce = int(input("Chce splacic: "))
-            if (chce > dlug):
+            if (chce > k.dlug):
                 print("To wiecej niz dlug, lecz po prostu splacimy całość.")
-                pieniadze -= dlug
-                dlug = 0
+                k.pieniadze -= k.dlug
+                k.dlug = 0
                 print("Okej. Dziekujemy za splacenie dlugu")
             else:
-                pieniadze -= chce
-                print(f"Dobrze. Splacono {chce}/{round(dlug)} zlotych dlugu.")
-                dlug -= chce
+                k.pieniadze -= chce
+                print(f"Dobrze. Splacono {chce}/{round(k.dlug)} zlotych dlugu.")
+                k.dlug -= chce
         else:
             print("Nie masz dlugu xd")
     except ValueError:
         print("Wpiszesz liczbe")
 
 def oddaj():
-    global pieniadze
-    global tax_trans
+    k = Kasyno()
     try:
-        if (pieniadze == 0):
+        if (k.pieniadze == 0):
             print("Jak ty pieniedzy nie masz\n")
         else:
             ile = int(input("Ile chcesz oddac?: "))
@@ -147,32 +145,29 @@ def oddaj():
                print("Nie mozesz oddac nic")
             else:
                print("Okej.")
-               if (ile > pieniadze):
+               if (ile > k.pieniadze):
                    print("Nie stac cie by tyle oddac\n")
                else:    
-                   pieniadze = pieniadze - ile
-                   tax_trans += 1
+                   k.pieniadze = k.pieniadze - ile
+                   k.tax_trans += 1
                    print("Dziekujemy za wplate.\n")
     except ValueError:
         print("Wpisz liczbe")
 
 def kredyt():
-    global pieniadze
-    global rrso_kredyt
-    global tax_trans
-    global dlug
+    k = Kasyno()
     try:
-        if (pieniadze > 10001):
+        if (k.pieniadze > 10001):
             mozliwosci = [15000, 25000, 50000]
             print("Okej...")
             print("Ile chcesz pozyczyc? (15000, 25000, 50000)")
             ilosc = int(input("Chce pozyczyc: "))
             if (ilosc in mozliwosci):
-                print(f"Ok, RRSO to {rrso_kredyt}%")
-                pieniadze = pieniadze + ilosc
-                dlug = dlug + (ilosc * (rrso_kredyt / 100 + 1))
+                print(f"Ok, RRSO to {k.rrso_kredyt}%")
+                k.pieniadze = k.pieniadze + ilosc
+                k.dlug = k.dlug + (ilosc * (k.rrso_kredyt / 100 + 1))
                 tax_trans += 1
-                print(f"Twoj aktualny dlug to: {round(dlug)}\n")
+                print(f"Twoj aktualny dlug to: {round(k.dlug)}\n")
             else:
                 print("Nie mozesz wyplacic takiej kwoty\n")
         else:
@@ -181,21 +176,18 @@ def kredyt():
         print("Wpisz liczbe")
 
 def pozyczka():
-    global pieniadze
-    global dlug
-    global rrso_pozyczka
-    global tax_trans
+    k = Kasyno()
     try:
-        if (pieniadze < 100):
+        if (k.pieniadze < 100):
             mozliwosci = [500, 1000, 2500, 10000]
             print("Ile chcesz pozyczyc? (500, 1000, 2500, 10000)")
             ilosc = int(input("Chce pozyczyc: "))
             if (ilosc in mozliwosci):
-                print(f"Ok, RRSO to {rrso_pozyczka}%")
-                pieniadze = pieniadze + ilosc
-                dlug = dlug + (ilosc * (rrso_pozyczka / 100 + 1))
-                tax_trans += 1
-                print(f"Twoj aktualny dlug to: {round(dlug)}\n")
+                print(f"Ok, RRSO to {k.rrso_pozyczka}%")
+                k.pieniadze = k.pieniadze + ilosc
+                k.dlug = k.dlug + (ilosc * (k.rrso_pozyczka / 100 + 1))
+                k.tax_trans += 1
+                print(f"Twoj aktualny dlug to: {round(k.dlug)}\n")
             else:
                 print("Nie mozesz wyplacic takiej kwoty\n")
         else:
@@ -204,29 +196,27 @@ def pozyczka():
         print("Wpisz liczbe")
 
 def zmien_szanse():
-    global szansa
-    global realna_szansa
-    global tax_trans
-    if (500 <= realna_szansa <= 1000):
-        szansa = round(szansa - 5)
-        realna_szansa = round(realna_szansa - 5)
-    elif (300 <= realna_szansa <= 499):
-        szansa = round(szansa - 4)
-        realna_szansa = round(realna_szansa - 4)
-    elif (200 <= realna_szansa <= 299):
-        szansa = round(szansa - 3)
-        realna_szansa = round(realna_szansa - 3)
-    elif (10 <= realna_szansa <= 199):
-        szansa = round(szansa - 2)
-        realna_szansa = round(realna_szansa - 2)
+    k = Kasyno()
+    if (500 <= k.realna_szansa <= 1000):
+        k.szansa = round(k.szansa - 5)
+        k.realna_szansa = round(k.realna_szansa - 5)
+    elif (300 <= k.realna_szansa <= 499):
+        k.szansa = round(k.szansa - 4)
+        k.realna_szansa = round(k.realna_szansa - 4)
+    elif (200 <= k.realna_szansa <= 299):
+        k.szansa = round(k.szansa - 3)
+        k.realna_szansa = round(k.realna_szansa - 3)
+    elif (10 <= k.realna_szansa <= 199):
+        k.szansa = round(k.szansa - 2)
+        k.realna_szansa = round(k.realna_szansa - 2)
     else:
-        szansa = round(szansa)      
-        realna_szansa = round(realna_szansa)  
-    tax_trans += 1
+        k.szansa = round(k.szansa)      
+        k.realna_szansa = round(k.realna_szansa)  
+    k.tax_trans += 1
 
 def praca():
-    global pieniadze
-    global tax_trans
+    k = Kasyno()
+
     nadgodziny = None
     print("Pracujesz")
     if (random.randint(1, 2) == 1):
@@ -237,10 +227,10 @@ def praca():
     if (nadgodziny):
         print("Pracujesz na nadgodziny wiec poczekaj jeszcze")
         time.sleep(4)
-    pieniadze_wypraconwane = random.randint(0, 1000)
-    if (pieniadze_wypraconwane > 0):
-        print(f"Ok masz pieniadze ({pieniadze_wypraconwane}zł)")
-        pieniadze += pieniadze_wypraconwane
+    pieniadze_wypracowane = random.randint(0, 1000)
+    if (pieniadze_wypracowane > 0):
+        print(f"Ok masz pieniadze ({pieniadze_wypracowane}zł)")
+        k.pieniadze += pieniadze_wypracowane
     else:
         print("HAHAHA PRACODAWCA CIE OKRADL")
         print("CO ROBISZ")
@@ -255,45 +245,43 @@ def praca():
                 udalo_sie = False
             if (udalo_sie):
                 print("Udalo sie")
-                pieniadze += 5000
+                k.pieniadze += 5000
             else:
                 print("Nie udalo sie")
-                if (pieniadze >= 500):
-                    pieniadze -= 500
+                if (k.pieniadze >= 500):
+                    k.pieniadze -= 500
                 else:
-                    pieniadze = 0
+                    k.pieniadze = 0
         elif (odpowiedz == "nic"):
             print("Ok, pracodawca uciekl.")
-    tax_trans += 1
+    k.tax_trans += 1
                 
 def main():
-    global pieniadze
-    global dlug
-    global tax_trans
-    global realna_szansa
+    k = Kasyno()
     try:
         while True:
-            print(f"Pieniadze na kasyno: {round(pieniadze)}")
-            if (dlug > 0):
-                print(f"Masz dlug wynoszacy {round(dlug)} zlotych. Dlug bedzie automatycznie splacany w kwocie 2% długu przy kazdej transkacji.")
-                if (pieniadze < (dlug * 0.02)):
+            print(f"Pieniadze na kasyno: {round(k.pieniadze)}")
+            if (k.dlug > 0):
+                print(f"Masz dlug wynoszacy {round(k.dlug)} zlotych. Dlug bedzie automatycznie splacany w kwocie 2% długu przy kazdej transkacji.")
+                if (k.pieniadze < (k.dlug * 0.02)):
                     print("Nie masz pieniedzy na splacenie dlugu, wypozycz wiecej albo sie pozegnaj z mieszkaniem")
                 else:
-                    pieniadze = pieniadze * 0.98
-                    splacono = pieniadze * 0.02
-                    dlug = dlug - splacono
-                    print("Pomyslnie splacono 2% dlugu.")
+                    k.pieniadze = k.pieniadze * 0.98
+                    splacono = k.pieniadze * 0.02
+                    k.dlug = k.dlug - splacono
+                    print("Pomyslnie splacono 2%~ długu.")
                     # Bo nie chce mi sie pisac systemu spłacania
-            if (tax_trans >= 30):
-                tax_trans = 0
-                if (pieniadze >= 100):
-                    pieniadze -= pieniadze / 10
-                    print(f"Zabrano podatek {round(pieniadze / 10)}zł. (więcej na inne)")
+                    # A i to do naprawienia bo tez zle dziala xd
+            if (k.tax_trans >= 30):
+                k.tax_trans = 0
+                if (k.pieniadze >= 100):
+                    k.pieniadze -= k.pieniadze / 10
+                    print(f"Zabrano podatek {round(k.pieniadze / 10)}zł. (więcej na inne)")
                 else:
-                    dlug += 1000
+                    k.dlug += 1000
                     print("Nałożono dług 1000 złotych ze względu na brak wystarczającej ilości pieniędzy na koncie, by zapłacić podatki.")
             print("$$$ KASYNO $$$")
-            print(f"Masz szanse 1/{szansa}")
+            print(f"Masz szanse 1/{k.szansa}")
             print("Wybierz sobie liczbe bo to kasyno i jak zgadniesz liczbe 0-9 to wygrasz pieniadze")
             liczba = input("Jaka? (/sklep/gry/inne): ")
             if (liczba == "sklep"):
@@ -304,11 +292,11 @@ def main():
                     print("Wpisz 'kredyt' by wziac kredyt")
                     co = input(": ")
                     if (co == "szansa"):
-                        if ((pieniadze - 300) < 0):
+                        if ((k.pieniadze - 300) < 0):
                             print("Nie stac cie")
                         else:    
                             print("Ok")
-                            pieniadze -= 300
+                            k.pieniadze -= 300
                             zmien_szanse()
                     elif (co == "pozyczka"):
                         print("Ok")
@@ -359,18 +347,18 @@ W momentu niskiego stanu konta, państwo nałoży dług w ilości 1000 złotych.
             else:
                 time.sleep(1)
                 print("Procesuje liczbe czekaj")
-                if (pieniadze >= 100):
+                if (k.pieniadze >= 100):
                     time.sleep(1)
                     print("Dobra\n")
                     time.sleep(1)
-                    if(random.randint(1, realna_szansa) != (round(realna_szansa * 0.84))):
+                    if(random.randint(1, k.realna_szansa) != (round(k.realna_szansa * 0.84))):
                         print("Oj niestety nie wygrales przykro mi")
-                        pieniadze -= 100
+                        k.pieniadze -= 100
                     else:
                         print("O KURDE JACKPOT")
-                        pieniadze = pieniadze + 100000
-                        realna_szansa += 50
-                    tax_trans += 1
+                        k.pieniadze = k.pieniadze + 100000
+                        k.realna_szansa += 50
+                    k.tax_trans += 1
                 else:
                     print("Nie stac cie juz wiecej na kasyno, wez pozyczke w sklepie")
     except KeyboardInterrupt:
