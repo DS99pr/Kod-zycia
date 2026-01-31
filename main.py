@@ -1,5 +1,6 @@
 import time
 import random
+from collections import Counter
 
 class Kasyno:
     def __init__(self):
@@ -11,7 +12,7 @@ class Kasyno:
         self.rrso_kredyt = 200
         self.tax_trans = 0
 
-def ruletka(k):
+def ruletka(k: Kasyno):
     try:
         if (k.pieniadze >= 250):
             print("""Jaki tryb? (kolor/pole)""")
@@ -65,7 +66,7 @@ B - Czarny
     except ValueError:
         print("Musisz wpisac poprawne pole!!")
 
-def blackjack(k):
+def blackjack(k: Kasyno):
     if (k.pieniadze >= 250):
         k.tax_trans += 1
         karty_krupiera = random.randint(2, 11) + random.randint(2, 11)
@@ -112,7 +113,66 @@ def blackjack(k):
     else:
         print("Nie stac cie na blackjacka")
 
-def splac(k):
+def lotto(k: Kasyno):
+    try:
+        def wylosuj():
+            return random.randint(1, 49)
+        def sprawdz(n):
+            if 1 <= n <= 49:
+                return True
+            else:
+                return False
+        pula_3 = 0.005
+        pula_4 = 0.9
+        pula_5 = 5
+        pula_6 = 550
+        if (k.pieniadze >= 100):
+            print(f"!! LOTTO !! WYGRAJ {pula_6} TYSIĘCY !! (tylko dziś)")
+            print('Musisz wpisac 6 liczb w zakresie 1-49, wpisanie niepoprawnej liczby zostanie ukarane')
+            l_1 = int(input("Pierwsza liczba: ")); l_2 = int(input("Druga liczba: "))
+            l_3 = int(input("Trzecia liczba: ")); l_4 = int(input("Czwarta liczba: "))
+            l_5 = int(input("Piąta liczba: ")); l_6 = int(input("Szósta liczba: "))
+            r_1 = wylosuj(); r_2 = wylosuj()
+            r_3 = wylosuj(); r_4 = wylosuj()
+            r_5 = wylosuj(); r_6 = wylosuj()
+            RP = [r_1, r_2, r_3, r_4, r_5, r_6]
+            if (
+                sprawdz(l_1) and sprawdz(l_2) and sprawdz(l_3) and sprawdz(l_4) and sprawdz(l_5) and sprawdz(l_6)
+            ):
+                UP = [l_1, l_2, l_3, l_4, l_5, l_6]
+                if (len(UP) == len(set(UP))):
+                    if (len(RP) == len(set(RP))):
+                        razem = RP + UP
+                        counter = Counter(razem)
+                        zgadniete = sum(ile - 1 for ile in counter.values() if ile > 1)
+                        if (zgadniete in [0, 1, 2]):
+                            print(f"Ah.. Nie wygrales nic. Odgadniete liczby: {zgadniete}")
+                            k.pieniadze -= 100
+                        elif (zgadniete == 3):
+                            print(f"Wygrales {pula_3 * 1000}zł!")
+                            k.pieniadze += pula_3 * 1000
+                        elif (zgadniete == 4):
+                            print(f"Wygrales {pula_4 * 1000}zł!!")
+                            k.pieniadze += pula_4 * 1000
+                        elif (zgadniete == 5):
+                            print(f"Wygrales {pula_5} tysiecy zlotych!!")
+                            k.pieniadze += pula_5 * 1000
+                        elif (zgadniete == 6):
+                            print(f"WOWW!! WYGRALES {pula_6} TYSIĘCY ZŁOTYCH!!!")
+                            k.pieniadze += pula_6 * 1000
+                    else:
+                        # Nie chce mi sie pisać rerollu
+                        print("Oj! Nasz system losowania ma powtorzenia. To nie twoj blad! Sprobuj ponownie.")
+                else:
+                    print("Nie mozesz wpisac tych samych liczb w lotto!")
+            else:
+                print('Musisz wpisac poprawna liczbe! Zostajesz wyrzucony przez rząd do lochów')
+                quit()
+    except ValueError:
+        print("Wpisz liczbe")
+    # Wiem ze to wszystko jest koszmarnie napisane ale nwm xd
+
+def splac(k: Kasyno):
     try:
         if (k.dlug > 0):
             print("Ile chcesz splacic?")
@@ -131,7 +191,7 @@ def splac(k):
     except ValueError:
         print("Wpiszesz liczbe")
 
-def oddaj(k):
+def oddaj(k: Kasyno):
     try:
         if (k.pieniadze == 0):
             print("Jak ty pieniedzy nie masz\n")
@@ -150,7 +210,7 @@ def oddaj(k):
     except ValueError:
         print("Wpisz liczbe")
 
-def kredyt(k):
+def kredyt(k: Kasyno):
     try:
         if (k.pieniadze > 10001):
             mozliwosci = [15000, 25000, 50000]
@@ -170,7 +230,7 @@ def kredyt(k):
     except ValueError:
         print("Wpisz liczbe")
 
-def pozyczka(k):
+def pozyczka(k: Kasyno):
     try:
         if (k.pieniadze < 100):
             mozliwosci = [500, 1000, 2500, 10000]
@@ -189,7 +249,7 @@ def pozyczka(k):
     except ValueError:
         print("Wpisz liczbe")
 
-def zmien_szanse(k):
+def zmien_szanse(k: Kasyno):
     if (500 <= k.realna_szansa <= 1000):
         k.szansa = round(k.szansa - 5)
         k.realna_szansa = round(k.realna_szansa - 5)
@@ -207,7 +267,7 @@ def zmien_szanse(k):
         k.realna_szansa = round(k.realna_szansa)  
     k.tax_trans += 1
 
-def praca(k):
+def praca(k: Kasyno):
 
     nadgodziny = None
     print("Pracujesz")
@@ -258,12 +318,13 @@ def main():
                 if (k.pieniadze < (k.dlug * 0.02)):
                     print("Nie masz pieniedzy na splacenie dlugu, wypozycz wiecej albo sie pozegnaj z mieszkaniem")
                 else:
-                    k.pieniadze = k.pieniadze * 0.98
                     splacono = k.pieniadze * 0.02
+                    k.pieniadze = k.pieniadze * 0.98
                     k.dlug = k.dlug - splacono
                     print("Pomyslnie splacono 2%~ długu.")
                     # Bo nie chce mi sie pisac systemu spłacania
                     # A i to do naprawienia bo tez zle dziala xd
+                    # Okej juz dziala ale nie chce mi sie usuwac tych komentarzy
             if (k.tax_trans >= 30):
                 k.tax_trans = 0
                 if (k.pieniadze >= 100):
@@ -305,11 +366,14 @@ def main():
                 while True:
                     print("Wpisz 'blackjack' by zagrac w blackjacka (250zl)")
                     print("Wpisz 'ruletka' by zagrac w ruletke (250zl)")
+                    print("Wpisz 'lotto' by zagrac w lotto (100zl)")
                     co = input(": ")
                     if (co == "blackjack"):
                         blackjack(k)
                     elif (co == "ruletka"):
                         ruletka(k)
+                    elif (co == "lotto"):
+                        lotto(k)
                     else:
                         print("ok")
                         break
@@ -344,6 +408,7 @@ W momentu niskiego stanu konta, państwo nałoży dług w ilości 1000 złotych.
                     print("Dobra\n")
                     time.sleep(1)
                     if(random.randint(1, k.realna_szansa) != (round(k.realna_szansa * 0.84))):
+                    # Nie chodzi mi o 84% tylko o 1/1000 i tak 0.84 jest przypadkowe
                         print("Oj niestety nie wygrales przykro mi")
                         k.pieniadze -= 100
                     else:
