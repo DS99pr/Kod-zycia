@@ -11,8 +11,7 @@ class Kasyno:
         self.rrso_kredyt = 200
         self.tax_trans = 0
 
-def ruletka():
-    k = Kasyno()
+def ruletka(k):
     try:
         if (k.pieniadze >= 250):
             print("""Jaki tryb? (kolor/pole)""")
@@ -66,8 +65,7 @@ B - Czarny
     except ValueError:
         print("Musisz wpisac poprawne pole!!")
 
-def blackjack():
-    k = Kasyno()
+def blackjack(k):
     if (k.pieniadze >= 250):
         k.tax_trans += 1
         karty_krupiera = random.randint(2, 11) + random.randint(2, 11)
@@ -114,8 +112,7 @@ def blackjack():
     else:
         print("Nie stac cie na blackjacka")
 
-def splac():
-    k = Kasyno()
+def splac(k):
     try:
         if (k.dlug > 0):
             print("Ile chcesz splacic?")
@@ -134,8 +131,7 @@ def splac():
     except ValueError:
         print("Wpiszesz liczbe")
 
-def oddaj():
-    k = Kasyno()
+def oddaj(k):
     try:
         if (k.pieniadze == 0):
             print("Jak ty pieniedzy nie masz\n")
@@ -154,8 +150,7 @@ def oddaj():
     except ValueError:
         print("Wpisz liczbe")
 
-def kredyt():
-    k = Kasyno()
+def kredyt(k):
     try:
         if (k.pieniadze > 10001):
             mozliwosci = [15000, 25000, 50000]
@@ -166,7 +161,7 @@ def kredyt():
                 print(f"Ok, RRSO to {k.rrso_kredyt}%")
                 k.pieniadze = k.pieniadze + ilosc
                 k.dlug = k.dlug + (ilosc * (k.rrso_kredyt / 100 + 1))
-                tax_trans += 1
+                k.tax_trans += 1
                 print(f"Twoj aktualny dlug to: {round(k.dlug)}\n")
             else:
                 print("Nie mozesz wyplacic takiej kwoty\n")
@@ -175,8 +170,7 @@ def kredyt():
     except ValueError:
         print("Wpisz liczbe")
 
-def pozyczka():
-    k = Kasyno()
+def pozyczka(k):
     try:
         if (k.pieniadze < 100):
             mozliwosci = [500, 1000, 2500, 10000]
@@ -195,8 +189,7 @@ def pozyczka():
     except ValueError:
         print("Wpisz liczbe")
 
-def zmien_szanse():
-    k = Kasyno()
+def zmien_szanse(k):
     if (500 <= k.realna_szansa <= 1000):
         k.szansa = round(k.szansa - 5)
         k.realna_szansa = round(k.realna_szansa - 5)
@@ -214,8 +207,7 @@ def zmien_szanse():
         k.realna_szansa = round(k.realna_szansa)  
     k.tax_trans += 1
 
-def praca():
-    k = Kasyno()
+def praca(k):
 
     nadgodziny = None
     print("Pracujesz")
@@ -297,13 +289,13 @@ def main():
                         else:    
                             print("Ok")
                             k.pieniadze -= 300
-                            zmien_szanse()
+                            zmien_szanse(k)
                     elif (co == "pozyczka"):
                         print("Ok")
-                        pozyczka()
+                        pozyczka(k)
                     elif (co == "kredyt"):
                         print("Ok")
-                        kredyt()
+                        kredyt(k)
                     else:
                         print("ok")
                         break
@@ -315,9 +307,9 @@ def main():
                     print("Wpisz 'ruletka' by zagrac w ruletke (250zl)")
                     co = input(": ")
                     if (co == "blackjack"):
-                        blackjack()
+                        blackjack(k)
                     elif (co == "ruletka"):
-                        ruletka()
+                        ruletka(k)
                     else:
                         print("ok")
                         break
@@ -330,9 +322,9 @@ def main():
                     co = input(": ")
                     if (co == "oddaj"):
                         print("Oj tak")
-                        oddaj()
+                        oddaj(k)
                     elif (co == "praca"):
-                        praca()
+                        praca(k)
                     elif (co == "podatki"):
                         print("""
 Podatki zabierają ci 10% twojego stanu bankowego co 30 transakcji. 
@@ -340,7 +332,7 @@ Sprawdzenie informacji o podatkach NIE liczy się jako transakcja.
 W momentu niskiego stanu konta, państwo nałoży dług w ilości 1000 złotych.
 """)
                     elif (co == "splac"):
-                        splac()
+                        splac(k)
                     else:
                         print("ok")
                         break
