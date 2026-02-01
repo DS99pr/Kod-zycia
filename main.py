@@ -13,6 +13,10 @@ class Kasyno:
         self.rrso_kredyt = 200
         self.tax_trans = 0
         self.pracodawca = 1
+        self.kung_fu_1_raz = True
+        self.mistrz_kungfu = ""
+        self.sila = 0
+        self.zrecznosc = 0
 
 def lochy():
     def forever():
@@ -234,6 +238,44 @@ def blackjack(k: Kasyno):
                         karty_krupiera += random.randint(2, 11)
     else:
         print("Nie stac cie na blackjacka")
+
+def kungfupanda(k: Kasyno):
+    try:
+        if (k.kung_fu_1_raz):
+            print("Witaj w treningu sztuki walk!")
+            print("Najpierw musisz wybrac swojego trenera") # to nic nie zmienia xd
+            print("""
+1 - Xiao pu
+2 - Daigo
+3 - Nunu
+""")
+            wybor = int(input("Ktorego mistrza wybierasz?: "))
+            if (wybor in [1, 2, 3]):
+                if (wybor == 1):
+                    k.mistrz_kungfu = "Xiao pu"
+                elif (wybor == 2):
+                    k.mistrz_kungfu = "Daigo"
+                elif (wybor == 3):
+                    k.mistrz_kungfu = "Nunu"
+                print("Swietnie! Pamietaj, trenowanie moze ci pomoc nawalac pracodawce jak cie okradnie i przezyc w lochach!")
+                time.sleep(1)
+                print("No dobrze, zrecznosc odpowiada za twoja predkosc, a sila no za sile")
+                time.sleep(1)
+                print("Wiec to wszystko z twojego pierwszego treningu. Wejściówka to była 300zł wiec tyle zabierzemy.")
+                if (k.pieniadze >= 300):
+                    k.pieniadze -= 300
+                else:
+                    print("Oj! Nie masz tyle na koncie. Zrobimy dlug, z RRSO 150%")
+                    k.dlug = 750
+                k.kung_fu_1_raz = False
+            else:
+                print("Musisz wybrac poprawnego mistrza!!")
+                k.pieniadze -= 50 # za nieposłuszeństwo
+        else:
+            print(f"Witaj ponownie. Aktualnie {k.mistrz_kungfu} jest zajęty. Ale zabierzemy 500zł dla zasady.\n")
+            k.pieniadze -= 500 
+    except ValueError:
+        print("Wpisz liczbe")
 
 def lotto(k: Kasyno):
     try:
@@ -513,6 +555,7 @@ def main():
                     print("Wpisz 'praca' by pracowac")
                     print("Wpisz 'podatki' by zobaczyc informacje o podatkach.")
                     print("Wpisz 'splac' by splacic dlug")
+                    print("Wpisz 'walka' by trenowac sztuki walk")
                     co = input(": ")
                     if (co == "oddaj"):
                         print("Oj tak")
@@ -527,6 +570,8 @@ W momentu niskiego stanu konta, państwo nałoży dług w ilości 1000 złotych.
 """)
                     elif (co == "splac"):
                         splac(k)
+                    elif (co == "walka"):
+                        kungfupanda(k)
                     else:
                         print("ok")
                         break
