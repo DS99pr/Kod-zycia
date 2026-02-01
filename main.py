@@ -266,14 +266,20 @@ def kungfupanda(k: Kasyno):
                     k.pieniadze -= 300
                 else:
                     print("Oj! Nie masz tyle na koncie. Zrobimy dlug, z RRSO 150%")
-                    k.dlug = 750
+                    k.dlug += 750
                 k.kung_fu_1_raz = False
             else:
                 print("Musisz wybrac poprawnego mistrza!!")
                 k.pieniadze -= 50 # za nieposłuszeństwo
         else:
             print(f"Witaj ponownie. Aktualnie {k.mistrz_kungfu} jest zajęty. Ale zabierzemy 500zł dla zasady.\n")
-            k.pieniadze -= 500 
+            if (k.pieniadze >= 500):
+                k.pieniadze -= 500
+            else:
+                time.sleep(1/3)
+                print("Oj! Nie masz tyle pieniedzy, nalozymy dlug z RRSO 300%")
+                k.dlug += 1200
+
     except ValueError:
         print("Wpisz liczbe")
 
