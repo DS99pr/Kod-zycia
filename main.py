@@ -1,5 +1,6 @@
 import time
 import random
+from os import system
 from collections import Counter
 
 class Kasyno:
@@ -11,6 +12,126 @@ class Kasyno:
         self.rrso_pozyczka = 20
         self.rrso_kredyt = 200
         self.tax_trans = 0
+
+def lochy():
+    def forever():
+        time.sleep(8484848)
+    try:
+        system("cls") # Nie chce mi sie pisac wersji na linuxa
+        print(f"Jesteś w lochach.")
+        print("Spotkałeś Maćka. Co robisz?")
+        odpowiedz = input("(zagaduje/ignoruje): ")
+        if (odpowiedz == "zagaduje"):
+            print("""
+1 - "Siema co tam"
+2 - "Iasfsdjf"
+3 - "Czemu tu jestes?"
+""")
+            wybor = int(input("Ktora odpowiedz wybierasz?: "))
+            if (wybor == 1):
+                print("Ty: Siema, co tam?")
+                time.sleep(1)
+                print("Maciek: A nic")
+                print("""
+1 - "Aha ok"
+2 - "Uciekamy stad?"
+""")
+                wybor = int(input("Ktora odpowiedz wybierasz?: "))
+                if (wybor == 1):
+                    print("Ty: Aha ok")
+                    time.sleep(0.5)
+                    print("Maciek: Ok")
+                    time.sleep(5)
+                    print("Przegrales")
+                    quit()
+                elif (wybor == 2):
+                    print("Ty: Uciekamy stad?")
+                    time.sleep(1)
+                    print("Maciek: Ty sie jeszcze pytasz? Wiadomo")
+                    time.sleep(3)
+                    print("*Uciekliscie*")
+                else:
+                    print("Nie")
+                    quit()
+            elif (wybor == 2):
+                print("Ty: Iasfsdjf")
+                time.sleep(2)
+                print("Maciek: Ej wezcie go do psychiatryka")
+                print("Zostales wziety do psychiatryka.")
+                forever()
+                # Pozniej sie doda psychiatryk
+            elif (wybor == 3):
+                print("Ty: Czemu tu jestes?")
+                time.sleep(0.2)
+                print("Maciek: Oszustwa podatkowe")
+                print("""
+1 - "Niezle"
+2 - "Dales zla liczbe w lotto??"
+3 - "Uciekamy stad?"
+""")
+                wybor = int(input("Ktora odpowiedz wybierasz?: "))
+                if (wybor == 1):
+                    print("Ty: Niezle")
+                    time.sleep(0.5)
+                    print("Maciek: No")
+                    time.sleep(5)
+                    print("Przegrales")
+                    time.sleep(0.5)
+                    quit()
+                elif (wybor == 2):
+                    print("Ty: Dales zla liczbe w lotto??")
+                    time.sleep(0.5)
+                    print("Maciek: Skad wiesz?")
+                    print("""
+1 - "Nie wazne"
+2 - "No bo ja tez"
+3 - "Uciekamy stad?"
+""")
+                    wybor = int(input("Ktora odpowiedz wybierasz?: "))
+                    if (wybor == 1):
+                        print("Ty: Nie wazne")
+                        time.sleep(0.5)
+                        print("*Maciek ci strzela sierpowego i umierasz*")
+                        time.sleep(0.5)
+                        quit()
+                    elif (wybor == 2):
+                        print("Ty: No bo ja tez")
+                        time.sleep(1)
+                        print("Maciek: XDD")
+                        time.sleep(2)
+                        print("Ty: Uciekamy stad?")
+                        time.sleep(1)
+                        print("Maciek: Nie.")
+                        time.sleep(3)
+                        print("*Maciek wzial didiegodo klatki i zaczal cie winogrować* (przegrales)")
+                        time.sleep(0.5)
+                        quit()
+                    elif (wybor == 3):
+                        print("Ty: Uciekamy stad?")
+                        time.sleep(1)
+                        print("Maciek: Ta")
+                        time.sleep(3)
+                        print("*Uciekliscie*")
+                elif (wybor == 3):
+                    print("Ty: Uciekamy stad?")
+                    time.sleep(1)
+                    print("Maciek: Dobra")
+                    time.sleep(3)
+                    print("*Uciekliscie*\n")
+                else:
+                    print("Nie")
+                    quit()
+            else:
+                print("Niepoprawny wybor xd")
+                forever()
+        elif (odpowiedz == "ignoruje"):
+            print("Zignorowales Maćka.")
+            forever()
+        else:
+            print("Nie")
+            quit()
+    except ValueError:
+        print("Wpisz liczbe.")
 
 def ruletka(k: Kasyno):
     try:
@@ -167,7 +288,7 @@ def lotto(k: Kasyno):
                     print("Nie mozesz wpisac tych samych liczb w lotto!")
             else:
                 print('Musisz wpisac poprawna liczbe! Zostajesz wyrzucony przez rząd do lochów')
-                quit()
+                lochy(k)
     except ValueError:
         print("Wpisz liczbe")
     # Wiem ze to wszystko jest koszmarnie napisane ale nwm xd
