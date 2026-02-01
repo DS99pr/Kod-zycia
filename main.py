@@ -12,6 +12,7 @@ class Kasyno:
         self.rrso_pozyczka = 20
         self.rrso_kredyt = 200
         self.tax_trans = 0
+        self.pracodawca = 1
 
 def lochy():
     def forever():
@@ -389,21 +390,22 @@ def zmien_szanse(k: Kasyno):
     k.tax_trans += 1
 
 def praca(k: Kasyno):
-
     nadgodziny = None
-    print("Pracujesz")
+    print(f"Pracujesz u pracodawcy #{k.pracodawca}")
     if (random.randint(1, 2) == 1):
         nadgodziny = True
     else:
         nadgodziny = False
     time.sleep(8)
     if (nadgodziny):
-        print("Pracujesz na nadgodziny wiec poczekaj jeszcze")
+        print("Pracujesz na bezpłatne nadgodziny wiec poczekaj jeszcze")
         time.sleep(4)
-    pieniadze_wypracowane = random.randint(0, 1000)
-    if (pieniadze_wypracowane > 0):
-        print(f"Ok masz pieniadze ({pieniadze_wypracowane}zł)")
-        k.pieniadze += pieniadze_wypracowane
+    pieniadze_wypracowane = random.randint(1, 1000)
+    czy_okradnal = True if (random.randint(1, 10) == 1) else False
+    if (not czy_okradnal):
+        if (pieniadze_wypracowane):
+            print(f"Ok masz pieniadze ({pieniadze_wypracowane}zł)")
+            k.pieniadze += pieniadze_wypracowane
     else:
         print("HAHAHA PRACODAWCA CIE OKRADL")
         print("CO ROBISZ")
@@ -417,8 +419,14 @@ def praca(k: Kasyno):
             else: 
                 udalo_sie = False
             if (udalo_sie):
-                print("Udalo sie")
-                k.pieniadze += 5000
+                print("Udalo sie dogonic pracodawce")
+                print("Bijesz sie z pracodawca...")
+                if (random.randint(1, 2) == 2):
+                    print("Pobiles go!")
+                    k.pieniadze += 5000
+                else:
+                    print("Nie udalo sie")
+                    k.pieniadze -= 500
             else:
                 print("Nie udalo sie")
                 if (k.pieniadze >= 500):
@@ -427,6 +435,7 @@ def praca(k: Kasyno):
                     k.pieniadze = 0
         elif (odpowiedz == "nic"):
             print("Ok, pracodawca uciekl.")
+        k.pracodawca += 1
     k.tax_trans += 1
                 
 def main():
