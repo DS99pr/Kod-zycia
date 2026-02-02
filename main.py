@@ -587,8 +587,8 @@ def main():
                 if (k.pieniadze < (k.dlug * 0.02)):
                     print("Nie masz pieniedzy na splacenie dlugu, wypozycz wiecej albo sie pozegnaj z mieszkaniem")
                 else:
-                    splacono = k.pieniadze * 0.02
-                    k.pieniadze = k.pieniadze * 0.98
+                    splacono = k.dlug * 0.02
+                    k.pieniadze = k.pieniadze - splacono
                     k.dlug = k.dlug - splacono
                     print("Pomyslnie splacono 2%~ długu.")
                     # Bo nie chce mi sie pisac systemu spłacania
