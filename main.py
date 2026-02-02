@@ -500,15 +500,26 @@ def zmien_szanse(k: Kasyno):
 def praca(k: Kasyno):
     def oblicz_szanse_dogoniecie():
         if (k.zrecznosc >= 0):
-            return True if (random.randint(1, 3) == 1) else False
+            return True if (random.randint(1, 3) == 1) else False # 33%
         elif (k.zrecznosc >= 10):
-            return True if (random.randint(1, 2) == 1) else False
+            return True if (random.randint(1, 2) == 1) else False # 50%
         elif (k.zrecznosc >= 25):
-            return True if (random.randint(1, 3) in [1, 2]) else False
+            return True if (random.randint(1, 3) in [1, 2]) else False # 67%
         elif (k.zrecznosc >= 50):
-            return True if (random.randint(1, 4) in [1, 2, 3]) else False
+            return True if (random.randint(1, 4) in [1, 2, 3]) else False # 75%
         elif (k.zrecznosc >= 100):
-            return True if (random.randint(1, 5) in [1, 2, 3, 4]) else False
+            return True if (random.randint(1, 5) in [1, 2, 3, 4]) else False # 80%
+    def oblicz_szanse_pobicie():
+        if (k.sila >= 0):
+            return True if (random.randint(1, 2) == 1) else False # 50%
+        elif (k.sila >= 10):
+            return True if (random.randint(1, 3) in [1, 2]) else False # 67%
+        elif (k.sila >= 25):
+            return True if (random.randint(1, 4) in [1, 2, 3]) else False # 75%
+        elif (k.sila >= 50):
+            return True if (random.randint(1, 5) in [1, 2, 3, 4]) else False # 80%
+        elif (k.sila >= 100):
+            return True if (random.randint(1, 6) in [1, 2, 3, 4, 5]) else False # 83%
     nadgodziny = None
     print(f"Pracujesz u pracodawcy #{k.pracodawca}")
     if (random.randint(1, 2) == 1):
@@ -526,11 +537,11 @@ def praca(k: Kasyno):
             print(f"Ok masz pieniadze ({pieniadze_wypracowane}zł)")
             k.pieniadze += pieniadze_wypracowane
     else:
-        print("HAHAHA PRACODAWCA CIE OKRADL")
+        print("XDDD PRACODAWCA CIE OKRADL")
         print("CO ROBISZ")
         odpowiedz = input("Odpowiedz (gonie/nic): ")
         if (odpowiedz == "gonie"):
-            print("Gonisz pracodawce")
+            print("GONISZ PRACODAWCE...")
             time.sleep(3)
             udalo_sie = None
             if (oblicz_szanse_dogoniecie()): 
@@ -539,13 +550,22 @@ def praca(k: Kasyno):
                 udalo_sie = False
             if (udalo_sie):
                 print("Udalo sie dogonic pracodawce")
+                co = input("Co z nim robisz/? (bije/konfrontuje): ")
                 print("Bijesz sie z pracodawca...")
-                if (random.randint(1, 2) == 2):
-                    print("Pobiles go!")
-                    k.pieniadze += 5000
-                else:
-                    print("Nie udalo sie")
-                    k.pieniadze -= 500
+                match (co):
+                    case "bije":
+                        if (oblicz_szanse_pobicie()):
+                            print("Pobiles go!")
+                            k.pieniadze += 5000
+                        else:
+                            print("Nie udalo sie")
+                            k.pieniadze -= 500
+                    case "konfrontuje":
+                        print("Ty: CO TY ZROBILES")
+                        time.sleep(1)
+                        print("*Pracodawca ucieka*")
+                    case _:
+                        print("Nie mozesz tak zrobic, ale uciekl jak cos")
             else:
                 print("Nie udalo sie")
                 if (k.pieniadze >= 500):
@@ -583,7 +603,10 @@ def main():
                     k.dlug += 1000
                     print("Nałożono dług 1000 złotych ze względu na brak wystarczającej ilości pieniędzy na koncie, by zapłacić podatki.")
             print("$$$ KASYNO $$$")
-            print(f"Masz szanse 1/{k.szansa}")
+            if (not k.szansa < 9):
+                print(f"Masz szanse 1/{k.szansa}")
+            else:
+                print(f"Masz szanse 1/{k.realna_szansa}")
             print("Wybierz sobie liczbe bo to kasyno i jak zgadniesz liczbe 0-9 to wygrasz pieniadze")
             liczba = input("Jaka? (/sklep/gry/inne): ")
             match (liczba):
@@ -664,7 +687,7 @@ W momentu niskiego stanu konta, państwo nałoży dług w ilości 1000 złotych.
                     print("Dobra\n")
                     time.sleep(1)
                     if (random.randint(1, k.realna_szansa) != (round(k.realna_szansa * 0.84))):
-                    # Nie chodzi mi o 84% tylko o 1/1000 i tak 0.84 jest przypadkowe
+                    # Nie chodzi mi o 84% tylko o domyslne 1/1000 i tak 0.84 jest przypadkowe
                         print("Oj niestety nie wygrales przykro mi")
                         k.pieniadze -= 100
                     else:
