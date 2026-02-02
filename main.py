@@ -277,7 +277,7 @@ def kungfupanda(k: Kasyno):
                 k.pieniadze -= 500
             else:
                 time.sleep(1/3)
-                print("Oj! Nie masz tyle pieniedzy, nalozymy dlug z RRSO 300%")
+                print("Oj! Nie masz tyle pieniedzy, nalozymy dlug 1200zł!!")
                 k.dlug += 1200
 
     except ValueError:
