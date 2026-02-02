@@ -160,6 +160,8 @@ def lochy():
             quit()
 
 def ruletka(k: Kasyno):
+    POLA_CZERWONE = {1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36}
+    POLA_CZARNE = {2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 29, 28, 31, 33, 35}
     if (k.pieniadze >= 250):
         print("""Jaki tryb? (kolor/pole)""")
         tryb = input("Tryb: ")
@@ -178,8 +180,8 @@ B - Czarny
                     trafione = rng(0, 36)
                     czekaj(1.5)
                     if (
-                        kolor == "R" and trafione in [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36] or
-                        kolor == "B" and trafione in [2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 29, 28, 31, 33, 35]
+                        kolor == "R" and trafione in POLA_CZERWONE or
+                        kolor == "B" and trafione in POLA_CZARNE
                     ):
                         print(f"Wygrales 500zł!")
                         k.pieniadze += 250
@@ -497,27 +499,33 @@ def zmien_szanse(k: Kasyno):
 
 def praca(k: Kasyno):
     def oblicz_szanse_dogoniecie():
-        if (k.zrecznosc >= 0):
-            return True if (rng(1, 3) == 1) else False # 33%
-        elif (k.zrecznosc >= 10):
-            return True if (rng(1, 2) == 1) else False # 50%
-        elif (k.zrecznosc >= 25):
-            return True if (rng(1, 3) in [1, 2]) else False # 67%
+        if (k.zrecznosc >= 100):
+            return True if (rng(1, 5) in [1, 2, 3, 4]) else False # 80%
         elif (k.zrecznosc >= 50):
             return True if (rng(1, 4) in [1, 2, 3]) else False # 75%
-        elif (k.zrecznosc >= 100):
-            return True if (rng(1, 5) in [1, 2, 3, 4]) else False # 80%
-    def oblicz_szanse_pobicie():
-        if (k.sila >= 0):
-            return True if (rng(1, 2) == 1) else False # 50%
-        elif (k.sila >= 10):
+        elif (k.zrecznosc >= 25):
             return True if (rng(1, 3) in [1, 2]) else False # 67%
-        elif (k.sila >= 25):
-            return True if (rng(1, 4) in [1, 2, 3]) else False # 75%
+        elif (k.zrecznosc >= 10):
+            return True if (rng(1, 2) == 1) else False # 50%
+        elif (k.zrecznosc >= 0):
+            return True if (rng(1, 3) == 1) else False # 33%
+        else:
+            return False
+
+    def oblicz_szanse_pobicie():
+        if (k.sila >= 100):
+            return True if (rng(1, 6) in [1, 2, 3, 4, 5]) else False # 83%
         elif (k.sila >= 50):
             return True if (rng(1, 5) in [1, 2, 3, 4]) else False # 80%
-        elif (k.sila >= 100):
-            return True if (rng(1, 6) in [1, 2, 3, 4, 5]) else False # 83%
+        elif (k.sila >= 25):
+            return True if (rng(1, 4) in [1, 2, 3]) else False # 75%
+        elif (k.sila >= 10):
+            return True if (rng(1, 3) in [1, 2]) else False # 67%
+        elif (k.sila >= 0):
+            return True if (rng(1, 2) == 1) else False # 50%
+        else:
+            return False
+        
     nadgodziny = None
     print(f"Pracujesz u pracodawcy #{k.pracodawca}")
     if (rng(1, 2) == 1):
