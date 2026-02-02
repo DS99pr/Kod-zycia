@@ -656,7 +656,9 @@ W momentu niskiego stanu konta, państwo nałoży dług w ilości 1000 złotych.
                 else:
                     print("Nie stac cie juz wiecej na kasyno, wez pozyczke w sklepie")
     except KeyboardInterrupt:
-        print("Nie nie wychodzisz z kasyna")
+        print("Troche smutno ze chcesz opuscic kasyno no ale dobra..")
+    except EOFError:
+        print("Xdd myslales ze przechytrzysz kasyno ale nie, my znamy takie sztuczki")
 
 if (__name__ == "__main__"):
     main()
