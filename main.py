@@ -1,6 +1,6 @@
 import time
 import random
-from os import system
+import os
 from collections import Counter
 
 class Kasyno:
@@ -20,20 +20,22 @@ class Kasyno:
 
 def lochy():
     def forever():
-        time.sleep(8484848)
+        time.sleep(848484)
     try:
-        system("cls") # Nie chce mi sie pisac wersji na linuxa
+        os.system("cls" if (os.name == 'nt') else "clear")
         print(f"Jesteś w lochach.")
         print("Spotkałeś Maćka. Co robisz?")
         odpowiedz = input("(zagaduje/ignoruje): ")
-        if (odpowiedz == "zagaduje"):
+        match (odpowiedz):
+          case "zagaduje":  
             print("""
 1 - "Siema co tam"
 2 - "Iasfsdjf"
 3 - "Czemu tu jestes?"
 """)
             wybor = int(input("Ktora odpowiedz wybierasz?: "))
-            if (wybor == 1):
+            match (wybor):
+               case 1: 
                 print("Ty: Siema, co tam?")
                 time.sleep(1)
                 print("Maciek: A nic")
@@ -42,30 +44,31 @@ def lochy():
 2 - "Uciekamy stad?"
 """)
                 wybor = int(input("Ktora odpowiedz wybierasz?: "))
-                if (wybor == 1):
+                match (wybor):
+                   case 1: 
                     print("Ty: Aha ok")
                     time.sleep(0.5)
                     print("Maciek: Ok")
                     time.sleep(5)
                     print("Przegrales")
                     quit()
-                elif (wybor == 2):
+                   case 2:
                     print("Ty: Uciekamy stad?")
                     time.sleep(1)
                     print("Maciek: Ty sie jeszcze pytasz? Wiadomo")
                     time.sleep(3)
                     print("*Uciekliscie*")
-                else:
+                   case _:
                     print("Nie")
                     quit()
-            elif (wybor == 2):
+               case 2:
                 print("Ty: Iasfsdjf")
                 time.sleep(2)
                 print("Maciek: Ej wezcie go do psychiatryka")
                 print("Zostales wziety do psychiatryka.")
                 forever()
                 # Pozniej sie doda psychiatryk
-            elif (wybor == 3):
+               case 3:
                 print("Ty: Czemu tu jestes?")
                 time.sleep(0.2)
                 print("Maciek: Oszustwa podatkowe")
@@ -75,7 +78,8 @@ def lochy():
 3 - "Uciekamy stad?"
 """)
                 wybor = int(input("Ktora odpowiedz wybierasz?: "))
-                if (wybor == 1):
+                match (wybor):
+                   case 1: 
                     print("Ty: Niezle")
                     time.sleep(0.5)
                     print("Maciek: No")
@@ -83,7 +87,7 @@ def lochy():
                     print("Przegrales")
                     time.sleep(0.5)
                     quit()
-                elif (wybor == 2):
+                   case 2:
                     print("Ty: Dales zla liczbe w lotto??")
                     time.sleep(0.5)
                     print("Maciek: Skad wiesz?")
@@ -93,13 +97,14 @@ def lochy():
 3 - "Uciekamy stad?"
 """)
                     wybor = int(input("Ktora odpowiedz wybierasz?: "))
-                    if (wybor == 1):
+                    match (wybor):
+                       case 1: 
                         print("Ty: Nie wazne")
                         time.sleep(0.5)
                         print("*Maciek ci strzela sierpowego i umierasz*")
                         time.sleep(0.5)
                         quit()
-                    elif (wybor == 2):
+                       case 2:
                         print("Ty: No bo ja tez")
                         time.sleep(1)
                         print("Maciek: XDD")
@@ -111,28 +116,28 @@ def lochy():
                         print("*Maciek wzial didiegodo klatki i zaczal cie winogrować* (przegrales)")
                         time.sleep(0.5)
                         quit()
-                    elif (wybor == 3):
+                       case 3:
                         print("Ty: Uciekamy stad?")
                         time.sleep(1)
                         print("Maciek: Ta")
                         time.sleep(3)
                         print("*Uciekliscie*")
-                elif (wybor == 3):
+                   case 3:
                     print("Ty: Uciekamy stad?")
                     time.sleep(1)
                     print("Maciek: Dobra")
                     time.sleep(3)
                     print("*Uciekliscie*\n")
-                else:
+                   case _:
                     print("Nie")
                     quit()
-            else:
+               case _:
                 print("Niepoprawny wybor xd")
                 forever()
-        elif (odpowiedz == "ignoruje"):
+          case ("ignoruje"):
             print("Zignorowales Maćka.")
             forever()
-        else:
+          case _:
             print("Nie")
             quit()
     except ValueError:
@@ -388,7 +393,7 @@ def lotto(k: Kasyno):
                     print("Nie mozesz wpisac tych samych liczb w lotto!")
             else:
                 print('Musisz wpisac poprawna liczbe! Zostajesz wyrzucony przez rząd do lochów')
-                lochy(k)
+                lochy()
     except ValueError:
         print("Wpisz liczbe")
     # Wiem ze to wszystko jest koszmarnie napisane ale nwm xd
