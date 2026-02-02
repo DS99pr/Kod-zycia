@@ -571,47 +571,50 @@ def main():
             print(f"Masz szanse 1/{k.szansa}")
             print("Wybierz sobie liczbe bo to kasyno i jak zgadniesz liczbe 0-9 to wygrasz pieniadze")
             liczba = input("Jaka? (/sklep/gry/inne): ")
-            if (liczba == "sklep"):
+            match (liczba):
+              case "sklep":  
                 while True:
                     print("Witaj w sklepie")
                     print("Wpisz 'szansa' by zwiekszyc swoja szanse w kasynie o 0.5% (za 300zl)")
                     print("Wpisz 'pozyczka' by pozyczyc pieniadze")
                     print("Wpisz 'kredyt' by wziac kredyt")
                     co = input(": ")
-                    if (co == "szansa"):
+                    match (co):
+                      case "szansa":
                         if ((k.pieniadze - 300) < 0):
                             print("Nie stac cie")
                         else:    
                             print("Ok")
                             k.pieniadze -= 300
                             zmien_szanse(k)
-                    elif (co == "pozyczka"):
+                      case "pozyczka":
                         print("Ok")
                         pozyczka(k)
-                    elif (co == "kredyt"):
+                      case "kredyt":
                         print("Ok")
                         kredyt(k)
-                    else:
+                      case _:
                         print("ok")
                         break
-            elif (liczba == "wyjdz"):
+              case "wyjdz":
                 quit()
-            elif (liczba == "gry"):
+              case "gry":
                 while True:
                     print("Wpisz 'blackjack' by zagrac w blackjacka (250zl)")
                     print("Wpisz 'ruletka' by zagrac w ruletke (250zl)")
                     print("Wpisz 'lotto' by zagrac w lotto (100zl)")
                     co = input(": ")
-                    if (co == "blackjack"):
+                    match (co):
+                      case "blackjack":
                         blackjack(k)
-                    elif (co == "ruletka"):
+                      case "ruletka":
                         ruletka(k)
-                    elif (co == "lotto"):
+                      case "lotto":
                         lotto(k)
-                    else:
+                      case _:
                         print("ok")
                         break
-            elif (liczba == "inne"):
+              case "inne":
                 while True:
                     print("Wpisz 'oddaj' by oddac pieniadze w rece panstwowe")
                     print("Wpisz 'praca' by pracowac")
@@ -619,32 +622,33 @@ def main():
                     print("Wpisz 'splac' by splacic dlug")
                     print("Wpisz 'walka' by trenowac sztuki walk")
                     co = input(": ")
-                    if (co == "oddaj"):
+                    match (co):
+                      case "oddaj":
                         print("Oj tak")
                         oddaj(k)
-                    elif (co == "praca"):
+                      case "praca":
                         praca(k)
-                    elif (co == "podatki"):
+                      case "podatki":
                         print("""
 Podatki zabierają ci 10% twojego stanu bankowego co 30 transakcji. 
 Sprawdzenie informacji o podatkach NIE liczy się jako transakcja.
 W momentu niskiego stanu konta, państwo nałoży dług w ilości 1000 złotych.
 """)
-                    elif (co == "splac"):
+                      case "splac":
                         splac(k)
-                    elif (co == "walka"):
+                      case "walka":
                         kungfupanda(k)
-                    else:
+                      case _:
                         print("ok")
                         break
-            else:
+              case _:
                 time.sleep(1)
                 print("Procesuje liczbe czekaj")
                 if (k.pieniadze >= 100):
                     time.sleep(1)
                     print("Dobra\n")
                     time.sleep(1)
-                    if(random.randint(1, k.realna_szansa) != (round(k.realna_szansa * 0.84))):
+                    if (random.randint(1, k.realna_szansa) != (round(k.realna_szansa * 0.84))):
                     # Nie chodzi mi o 84% tylko o 1/1000 i tak 0.84 jest przypadkowe
                         print("Oj niestety nie wygrales przykro mi")
                         k.pieniadze -= 100
