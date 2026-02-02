@@ -18,190 +18,203 @@ class Kasyno:
         self.sila = 0
         self.zrecznosc = 0
 
+# FUNCKJE POMOCNICZE
+
+def inputint(m: str):
+    try:
+        i = int(input(m))
+        return i
+    except ValueError:
+        print("Wpisz liczbe!!")
+    except EOFError:
+        print("XDD Nie klikaj Ctrl + Z + Enter wiecej bo zostaniesz wrzcuony do lochow")
+
+def rng(first: int, last: int):
+    return random.randint(first, last)
+
+def czekaj(ile: float = 1):
+    time.sleep(ile)
+
+
+
 def lochy():
     def forever():
-        time.sleep(848484)
-    try:
-        os.system("cls" if (os.name == 'nt') else "clear")
-        print(f"Jesteś w lochach.")
-        print("Spotkałeś Maćka. Co robisz?")
-        odpowiedz = input("(zagaduje/ignoruje): ")
-        match (odpowiedz):
-          case "zagaduje":  
+        czekaj(848484)
+    os.system("cls" if (os.name == 'nt') else "clear")
+    print(f"Jesteś w lochach.")
+    print("Spotkałeś Maćka. Co robisz?")
+    odpowiedz = input("(zagaduje/ignoruje): ")
+    match (odpowiedz):
+        case "zagaduje":  
             print("""
 1 - "Siema co tam"
 2 - "Iasfsdjf"
 3 - "Czemu tu jestes?"
 """)
-            wybor = int(input("Ktora odpowiedz wybierasz?: "))
+            wybor = inputint("Ktora odpowiedz wybierasz?: ")
             match (wybor):
-               case 1: 
-                print("Ty: Siema, co tam?")
-                time.sleep(1)
-                print("Maciek: A nic")
-                print("""
+                case 1: 
+                    print("Ty: Siema, co tam?")
+                    czekaj(1)
+                    print("Maciek: A nic")
+                    print("""
 1 - "Aha ok"
 2 - "Uciekamy stad?"
 """)
-                wybor = int(input("Ktora odpowiedz wybierasz?: "))
-                match (wybor):
-                   case 1: 
-                    print("Ty: Aha ok")
-                    time.sleep(0.5)
-                    print("Maciek: Ok")
-                    time.sleep(5)
-                    print("Przegrales")
-                    quit()
-                   case 2:
-                    print("Ty: Uciekamy stad?")
-                    time.sleep(1)
-                    print("Maciek: Ty sie jeszcze pytasz? Wiadomo")
-                    time.sleep(3)
-                    print("*Uciekliscie*")
-                   case _:
-                    print("Nie")
-                    quit()
-               case 2:
-                print("Ty: Iasfsdjf")
-                time.sleep(2)
-                print("Maciek: Ej wezcie go do psychiatryka")
-                print("Zostales wziety do psychiatryka.")
-                forever()
-                # Pozniej sie doda psychiatryk
-               case 3:
-                print("Ty: Czemu tu jestes?")
-                time.sleep(0.2)
-                print("Maciek: Oszustwa podatkowe")
-                print("""
+                    wybor = inputint("Ktora odpowiedz wybierasz?: ")
+                    match (wybor):
+                        case 1: 
+                            print("Ty: Aha ok")
+                            czekaj(0.5)
+                            print("Maciek: Ok")
+                            czekaj(5)
+                            print("Przegrales")
+                            quit()
+                        case 2:
+                            print("Ty: Uciekamy stad?")
+                            czekaj(1)
+                            print("Maciek: Ty sie jeszcze pytasz? Wiadomo")
+                            czekaj(3)
+                            print("*Uciekliscie*")
+                        case _:
+                            print("Nie")
+                            quit()
+                case 2:
+                    print("Ty: Iasfsdjf")
+                    czekaj(2)
+                    print("Maciek: Ej wezcie go do psychiatryka")
+                    print("Zostales wziety do psychiatryka.")
+                    forever()
+                    # Pozniej sie doda psychiatryk
+                case 3:
+                    print("Ty: Czemu tu jestes?")
+                    czekaj(0.2)
+                    print("Maciek: Oszustwa podatkowe")
+                    print("""
 1 - "Niezle"
 2 - "Dales zla liczbe w lotto??"
 3 - "Uciekamy stad?"
 """)
-                wybor = int(input("Ktora odpowiedz wybierasz?: "))
-                match (wybor):
-                   case 1: 
-                    print("Ty: Niezle")
-                    time.sleep(0.5)
-                    print("Maciek: No")
-                    time.sleep(5)
-                    print("Przegrales")
-                    time.sleep(0.5)
-                    quit()
-                   case 2:
-                    print("Ty: Dales zla liczbe w lotto??")
-                    time.sleep(0.5)
-                    print("Maciek: Skad wiesz?")
-                    print("""
+                    wybor = inputint("Ktora odpowiedz wybierasz?: ")
+                    match (wybor):
+                        case 1: 
+                            print("Ty: Niezle")
+                            czekaj(0.5)
+                            print("Maciek: No")
+                            czekaj(5)
+                            print("Przegrales")
+                            czekaj(0.5)
+                            quit()
+                        case 2:
+                            print("Ty: Dales zla liczbe w lotto??")
+                            czekaj(0.5)
+                            print("Maciek: Skad wiesz?")
+                            print("""
 1 - "Nie wazne"
 2 - "No bo ja tez"
 3 - "Uciekamy stad?"
 """)
-                    wybor = int(input("Ktora odpowiedz wybierasz?: "))
-                    match (wybor):
-                       case 1: 
-                        print("Ty: Nie wazne")
-                        time.sleep(0.5)
-                        print("*Maciek ci strzela sierpowego i umierasz*")
-                        time.sleep(0.5)
-                        quit()
-                       case 2:
-                        print("Ty: No bo ja tez")
-                        time.sleep(1)
-                        print("Maciek: XDD")
-                        time.sleep(2)
-                        print("Ty: Uciekamy stad?")
-                        time.sleep(1)
-                        print("Maciek: Nie.")
-                        time.sleep(3)
-                        print("*Maciek wzial didiegodo klatki i zaczal cie winogrować* (przegrales)")
-                        time.sleep(0.5)
-                        quit()
-                       case 3:
-                        print("Ty: Uciekamy stad?")
-                        time.sleep(1)
-                        print("Maciek: Ta")
-                        time.sleep(3)
-                        print("*Uciekliscie*")
-                   case 3:
-                    print("Ty: Uciekamy stad?")
-                    time.sleep(1)
-                    print("Maciek: Dobra")
-                    time.sleep(3)
-                    print("*Uciekliscie*\n")
-                   case _:
+                            wybor = inputint("Ktora odpowiedz wybierasz?: ")
+                            match (wybor):
+                                case 1: 
+                                    print("Ty: Nie wazne")
+                                    czekaj(0.5)
+                                    print("*Maciek ci strzela sierpowego i umierasz*")
+                                    czekaj(0.5)
+                                    quit()
+                                case 2:
+                                    print("Ty: No bo ja tez")
+                                    czekaj(1)
+                                    print("Maciek: XDD")
+                                    czekaj(2)
+                                    print("Ty: Uciekamy stad?")
+                                    czekaj(1)
+                                    print("Maciek: Nie.")
+                                    czekaj(3)
+                                    print("*Maciek wzial didiegodo klatki i zaczal cie winogrować* (przegrales)")
+                                    czekaj(0.5)
+                                    quit()
+                                case 3:
+                                    print("Ty: Uciekamy stad?")
+                                    czekaj(1)
+                                    print("Maciek: Ta")
+                                    czekaj(3)
+                                    print("*Uciekliscie*")
+                        case 3:
+                            print("Ty: Uciekamy stad?")
+                            czekaj(1)
+                            print("Maciek: Dobra")
+                            czekaj(3)
+                            print("*Uciekliscie*\n")
+                        case _:
+                            print("Niepoprawny wybor xd")
+                            forever()
+                case _:
                     print("Nie")
                     quit()
-               case _:
-                print("Niepoprawny wybor xd")
-                forever()
-          case ("ignoruje"):
+        case ("ignoruje"):
             print("Zignorowales Maćka.")
             forever()
-          case _:
+        case _:
             print("Nie")
             quit()
-    except ValueError:
-        print("Wpisz liczbe.")
 
 def ruletka(k: Kasyno):
-    try:
-        if (k.pieniadze >= 250):
-            print("""Jaki tryb? (kolor/pole)""")
-            tryb = input("Tryb: ")
-            if (tryb in ["kolor", "pole"]):
-                if (tryb == "kolor"):
-                    print("""
+    if (k.pieniadze >= 250):
+        print("""Jaki tryb? (kolor/pole)""")
+        tryb = input("Tryb: ")
+        if (tryb in ["kolor", "pole"]):
+            if (tryb == "kolor"):
+                print("""
 Jaki kolor?
                           
 R - Czerwony
 G - Zielony
 B - Czarny
 """)
-                    kolor = input("Kolor: ")
-                    if (kolor in ["R", "G", "B"]):
-                        print("Losuje...")
-                        trafione = random.randint(0, 36)
-                        time.sleep(1.5)
-                        if (
-                            kolor == "R" and trafione in [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36] or
-                            kolor == "B" and trafione in [2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 29, 28, 31, 33, 35]
-                        ):
-                            print(f"Wygrales 500zł!")
-                            k.pieniadze += 250
-                        elif (kolor == "G" and trafione == 0):
-                            print(f"Wow!! Wygrales {250 * 36}zł")
-                            k.pieniadze += (250 * 36)
-                        else:
-                            print("Przegrales")
-                            k.pieniadze -= 250
-                    else:
-                        print("Ten kolor nie istnieje")
-                elif (tryb == "pole"):
-                    print("Jakie pole? (0-36)")
-                    pole = int(input("Pole: "))
-                    print("Losuje..")
-                    trafione = random.randint(0, 36)
-                    time.sleep(1.5)
-                    if (pole == trafione):
-                        wygrane = 250 * 36
-                        print(f"Udalo ci sie!! Wygrywasz {wygrane}zł")
-                        k.pieniadze += wygrane
+                kolor = input("Kolor: ")
+                if (kolor in ["R", "G", "B"]):
+                    print("Losuje...")
+                    trafione = rng(0, 36)
+                    czekaj(1.5)
+                    if (
+                        kolor == "R" and trafione in [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36] or
+                        kolor == "B" and trafione in [2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 29, 28, 31, 33, 35]
+                    ):
+                        print(f"Wygrales 500zł!")
+                        k.pieniadze += 250
+                    elif (kolor == "G" and trafione == 0):
+                        print(f"Wow!! Wygrales {250 * 36}zł")
+                        k.pieniadze += (250 * 36)
                     else:
                         print("Przegrales")
                         k.pieniadze -= 250
-            else:
-                print("Musisz podac poprawny tryb")
-            k.tax_trans += 1
+                else:
+                    print("Ten kolor nie istnieje")
+            elif (tryb == "pole"):
+                print("Jakie pole? (0-36)")
+                pole = inputint("Pole: ")
+                print("Losuje..")
+                trafione = rng(0, 36)
+                czekaj(1.5)
+                if (pole == trafione):
+                    wygrane = 250 * 36
+                    print(f"Udalo ci sie!! Wygrywasz {wygrane}zł")
+                    k.pieniadze += wygrane
+                else:
+                    print("Przegrales")
+                    k.pieniadze -= 250
         else:
-            print("Nie stac cie na ruletke")
-    except ValueError:
-        print("Musisz wpisac poprawne pole!!")
+            print("Musisz podac poprawny tryb")
+        k.tax_trans += 1
+    else:
+        print("Nie stac cie na ruletke")
 
 def blackjack(k: Kasyno):
     if (k.pieniadze >= 250):
         k.tax_trans += 1
-        karty_krupiera = random.randint(2, 11) + random.randint(2, 11)
-        karty_gracza = random.randint(2, 11) + random.randint(2, 11)
+        karty_krupiera = rng(2, 11) + rng(2, 11)
+        karty_gracza = rng(2, 11) + rng(2, 11)
         while True:
             if (karty_gracza == 21 and karty_krupiera != 21):
                 print(f"O kurde wygrales. (krupier miał {karty_krupiera} kart, a ty {karty_gracza})")
@@ -227,25 +240,24 @@ def blackjack(k: Kasyno):
             print("Bierzesz czy stoisz?")
             odpowiedz = input("Odpowiedz (stoje/biore): ")
             if (odpowiedz == "biore"):
-                karty_gracza += random.randint(2, 11)
+                karty_gracza += rng(2, 11)
                 if (karty_krupiera in [18, 19]):
-                    if (random.randint(1, 2) == 2):
+                    if (rng(1, 2) == 2):
                         karty_krupiera = 21
                 else:
-                    if (random.randint(1, 2) == 1):
-                        karty_krupiera += random.randint(2, 11)
+                    if (rng(1, 2) == 1):
+                        karty_krupiera += rng(2, 11)
             elif (odpowiedz == "stoje"):
                 if (karty_krupiera in [18, 19]):
-                    if (random.randint(1, 2) == 2):
+                    if (rng(1, 2) == 2):
                         karty_krupiera = 21
                 else:
-                    if (random.randint(1, 2) == 1):
-                        karty_krupiera += random.randint(2, 11)
+                    if (rng(1, 2) == 1):
+                        karty_krupiera += rng(2, 11)
     else:
         print("Nie stac cie na blackjacka")
 
 def kungfupanda(k: Kasyno):
-    try:
         if (k.kung_fu_1_raz):
             print("Witaj w treningu sztuki walk!")
             print("Najpierw musisz wybrac swojego trenera") # to nic nie zmienia xd
@@ -254,8 +266,9 @@ def kungfupanda(k: Kasyno):
 2 - Daigo
 3 - Nunu
 """)
-            wybor = int(input("Ktorego mistrza wybierasz?: "))
+            wybor = inputint("Ktorego mistrza wybierasz?: ")
             if (wybor in [1, 2, 3]):
+                czekaj(1)
                 if (wybor == 1):
                     k.mistrz_kungfu = "Xiao pu"
                 elif (wybor == 2):
@@ -263,9 +276,9 @@ def kungfupanda(k: Kasyno):
                 elif (wybor == 3):
                     k.mistrz_kungfu = "Nunu"
                 print("Swietnie! Pamietaj, trenowanie moze ci pomoc nawalac pracodawce jak cie okradnie i przezyc w lochach!")
-                time.sleep(1)
+                czekaj(1)
                 print("No dobrze, zrecznosc odpowiada za twoja predkosc, a sila no za sile")
-                time.sleep(1)
+                czekaj(1)
                 print("Wiec to wszystko z twojego pierwszego treningu. Wejściówka to była 300zł wiec tyle zabierzemy.")
                 if (k.pieniadze >= 300):
                     k.pieniadze -= 300
@@ -274,19 +287,20 @@ def kungfupanda(k: Kasyno):
                     k.dlug += 750
                 k.kung_fu_1_raz = False
             else:
+                czekaj(1)
                 print("Musisz wybrac poprawnego mistrza!!")
                 if (k.pieniadze >= 50):
                     k.pieniadze -= 50 # za nieposłuszeństwo
                 else:
                     k.dlug += 100
         else:
-            czy_zajety = True if (random.randint(1, 5) == 3) else False
+            czy_zajety = True if (rng(1, 5) == 3) else False
             if (czy_zajety):
                 print(f"Witaj ponownie. Aktualnie {k.mistrz_kungfu} jest zajęty. Ale zabierzemy 500zł dla zasady.\n")
                 if (k.pieniadze >= 500):
                     k.pieniadze -= 500
                 else:
-                    time.sleep(1/3)
+                    czekaj(1/3)
                     print("Oj! Nie masz tyle pieniedzy, nalozymy dlug 1200zł!!")
                     k.dlug += 1200
             else:
@@ -300,21 +314,21 @@ def kungfupanda(k: Kasyno):
                         f"*Uciekasz przed czyms co cie goni*"
                     ]
                     print("Witaj ponownie! Dzisiaj trenujemy.")
-                    time.sleep(0.5)
+                    czekaj(0.5)
                     print(f"Masz {k.sila} siły")
-                    time.sleep(0.25)
+                    czekaj(0.25)
                     print(f"I {k.zrecznosc} zręczności.")
-                    time.sleep(1)
+                    czekaj(1)
                     print("Co dzisiaj chcesz trenować? (S = siła, Z = zręczność)")
                     wybor = input("Trenuje: ")
                     if (wybor in ["S", "Z"]):
                         if (wybor == "S"):
                             print("Dobrze, dzisiaj trenujemy siłe.")
                             print(random.choice(mozliwe_treningi_sila))
-                            udalo_sie = True if (random.randint(1, 10) in [1, 2, 3, 4, 5, 6, 7, 8, 9]) else False
+                            udalo_sie = True if (rng(1, 10) in [1, 2, 3, 4, 5, 6, 7, 8, 9]) else False
                             if (udalo_sie):
-                                ile_sily = random.randint(1, 3)
-                                time.sleep(1)
+                                ile_sily = rng(1, 3)
+                                czekaj(1)
                                 print(f"Dostales {ile_sily} siły!")
                                 k.sila += ile_sily
                             else:
@@ -324,10 +338,10 @@ def kungfupanda(k: Kasyno):
                         elif (wybor == "Z"):
                             print("Dobrze, dzisiaj trenujemy zrecznosc.")
                             print(random.choice(mozliwe_treningi_zrecznosc))
-                            udalo_sie = True if (random.randint(1, 10) in [1, 2, 3, 4, 5, 6, 7, 8, 9]) else False
+                            udalo_sie = True if (rng(1, 10) in [1, 2, 3, 4, 5, 6, 7, 8, 9]) else False
                             if (udalo_sie):
-                                ile_zrecznosci = random.randint(1, 3)
-                                time.sleep(1)
+                                ile_zrecznosci = rng(1, 3)
+                                czekaj(1)
                                 print(f"Dostales {ile_zrecznosci} zręczności!")
                                 k.zrecznosc += ile_zrecznosci
                             else:
@@ -340,144 +354,128 @@ def kungfupanda(k: Kasyno):
                 else:
                     print("Nie stac cie na trening!")
 
-    except ValueError:
-        print("Wpisz liczbe")
-
 def lotto(k: Kasyno):
-    try:
-        def wylosuj():
-            return random.randint(1, 49)
-        def sprawdz(n):
-            if 1 <= n <= 49:
-                return True
-            else:
-                return False
-        pula_3 = 0.005
-        pula_4 = 0.9
-        pula_5 = 5
-        pula_6 = 550
-        if (k.pieniadze >= 100):
-            print(f"!! LOTTO !! WYGRAJ {pula_6} TYSIĘCY !! (tylko dziś)")
-            print('Musisz wpisac 6 liczb w zakresie 1-49, wpisanie niepoprawnej liczby zostanie ukarane')
-            l_1 = int(input("Pierwsza liczba: ")); l_2 = int(input("Druga liczba: "))
-            l_3 = int(input("Trzecia liczba: ")); l_4 = int(input("Czwarta liczba: "))
-            l_5 = int(input("Piąta liczba: ")); l_6 = int(input("Szósta liczba: "))
-            r_1 = wylosuj(); r_2 = wylosuj()
-            r_3 = wylosuj(); r_4 = wylosuj()
-            r_5 = wylosuj(); r_6 = wylosuj()
-            RP = [r_1, r_2, r_3, r_4, r_5, r_6]
-            if (
-                sprawdz(l_1) and sprawdz(l_2) and sprawdz(l_3) and sprawdz(l_4) and sprawdz(l_5) and sprawdz(l_6)
-            ):
-                UP = [l_1, l_2, l_3, l_4, l_5, l_6]
-                if (len(UP) == len(set(UP))):
-                    if (len(RP) == len(set(RP))):
-                        razem = RP + UP
-                        counter = Counter(razem)
-                        zgadniete = sum(ile - 1 for ile in counter.values() if ile > 1)
-                        if (zgadniete in [0, 1, 2]):
-                            print(f"Ah.. Nie wygrales nic. Odgadniete liczby: {zgadniete}")
-                            k.pieniadze -= 100
-                        elif (zgadniete == 3):
-                            print(f"Wygrales {pula_3 * 1000}zł!")
-                            k.pieniadze += pula_3 * 1000
-                        elif (zgadniete == 4):
-                            print(f"Wygrales {pula_4 * 1000}zł!!")
-                            k.pieniadze += pula_4 * 1000
-                        elif (zgadniete == 5):
-                            print(f"Wygrales {pula_5} tysiecy zlotych!!")
-                            k.pieniadze += pula_5 * 1000
-                        elif (zgadniete == 6):
-                            print(f"WOWW!! WYGRALES {pula_6} TYSIĘCY ZŁOTYCH!!!")
-                            k.pieniadze += pula_6 * 1000
-                    else:
-                        # Nie chce mi sie pisać rerollu
-                        print("Oj! Nasz system losowania ma powtorzenia. To nie twoj blad! Sprobuj ponownie.")
+    def wylosuj():
+        return rng(1, 49)
+    def sprawdz(n):
+        if 1 <= n <= 49:
+            return True
+        else:
+            return False
+    pula_3 = 0.005
+    pula_4 = 0.9
+    pula_5 = 5
+    pula_6 = 550
+    if (k.pieniadze >= 100):
+        print(f"!! LOTTO !! WYGRAJ {pula_6} TYSIĘCY !! (tylko dziś)")
+        print('Musisz wpisac 6 liczb w zakresie 1-49, wpisanie niepoprawnej liczby zostanie ukarane')
+        l_1 = inputint("Pierwsza liczba: "); l_2 = inputint("Druga liczba: ")
+        l_3 = inputint("Trzecia liczba: "); l_4 = inputint("Czwarta liczba: ")
+        l_5 = inputint("Piąta liczba: "); l_6 = inputint("Szósta liczba: ")
+        r_1 = wylosuj(); r_2 = wylosuj()
+        r_3 = wylosuj(); r_4 = wylosuj()
+        r_5 = wylosuj(); r_6 = wylosuj()
+        RP = [r_1, r_2, r_3, r_4, r_5, r_6]
+        if (
+            sprawdz(l_1) and sprawdz(l_2) and sprawdz(l_3) and sprawdz(l_4) and sprawdz(l_5) and sprawdz(l_6)
+        ):
+            UP = [l_1, l_2, l_3, l_4, l_5, l_6]
+            if (len(UP) == len(set(UP))):
+                if (len(RP) == len(set(RP))):
+                    razem = RP + UP
+                    counter = Counter(razem)
+                    zgadniete = sum(ile - 1 for ile in counter.values() if ile > 1)
+                    if (zgadniete in [0, 1, 2]):
+                        print(f"Ah.. Nie wygrales nic. Odgadniete liczby: {zgadniete}")
+                        k.pieniadze -= 100
+                    elif (zgadniete == 3):
+                        print(f"Wygrales {pula_3 * 1000}zł!")
+                        k.pieniadze += pula_3 * 1000
+                    elif (zgadniete == 4):
+                        print(f"Wygrales {pula_4 * 1000}zł!!")
+                        k.pieniadze += pula_4 * 1000
+                    elif (zgadniete == 5):
+                        print(f"Wygrales {pula_5} tysiecy zlotych!!")
+                        k.pieniadze += pula_5 * 1000
+                    elif (zgadniete == 6):
+                        print(f"WOWW!! WYGRALES {pula_6} TYSIĘCY ZŁOTYCH!!!")
+                        k.pieniadze += pula_6 * 1000
                 else:
-                    print("Nie mozesz wpisac tych samych liczb w lotto!")
+                    # Nie chce mi sie pisać rerollu
+                    print("Oj! Nasz system losowania ma powtorzenia. To nie twoj blad! Sprobuj ponownie.")
+                    # Tu niestety nie lochy..
             else:
-                print('Musisz wpisac poprawna liczbe! Zostajesz wyrzucony przez rząd do lochów')
+                print("Nie mozesz wpisac tych samych liczb w lotto!")
                 lochy()
-    except ValueError:
-        print("Wpisz liczbe")
+        else:
+            print('Musisz wpisac poprawna liczbe! Zostajesz wyrzucony przez rząd do lochów')
+            lochy()
     # Wiem ze to wszystko jest koszmarnie napisane ale nwm xd
 
 def splac(k: Kasyno):
-    try:
-        if (k.dlug > 0):
-            print("Ile chcesz splacic?")
-            chce = int(input("Chce splacic: "))
-            if (chce > k.dlug):
-                print("To wiecej niz dlug, lecz po prostu splacimy całość.")
-                k.pieniadze -= k.dlug
-                k.dlug = 0
-                print("Okej. Dziekujemy za splacenie dlugu")
-            else:
-                k.pieniadze -= chce
-                print(f"Dobrze. Splacono {chce}/{round(k.dlug)} zlotych dlugu.")
-                k.dlug -= chce
+    if (k.dlug > 0):
+        print("Ile chcesz splacic?")
+        chce = inputint("Chce splacic: ")
+        if (chce > k.dlug):
+            print("To wiecej niz dlug, lecz po prostu splacimy całość.")
+            k.pieniadze -= k.dlug
+            k.dlug = 0
+            print("Okej. Dziekujemy za splacenie dlugu")
         else:
-            print("Nie masz dlugu xd")
-    except ValueError:
-        print("Wpiszesz liczbe")
+            k.pieniadze -= chce
+            print(f"Dobrze. Splacono {chce}/{round(k.dlug)} zlotych dlugu.")
+            k.dlug -= chce
+    else:
+        print("Nie masz dlugu xd")
 
 def oddaj(k: Kasyno):
-    try:
-        if (k.pieniadze == 0):
-            print("Jak ty pieniedzy nie masz\n")
+    if (k.pieniadze == 0):
+        print("Jak ty pieniedzy nie masz\n")
+    else:
+        ile = inputint("Ile chcesz oddac?: ")
+        if (ile <= 0):
+            print("Nie mozesz oddac nic")
         else:
-            ile = int(input("Ile chcesz oddac?: "))
-            if (ile <= 0):
-               print("Nie mozesz oddac nic")
-            else:
-               print("Okej.")
-               if (ile > k.pieniadze):
-                   print("Nie stac cie by tyle oddac\n")
-               else:    
-                   k.pieniadze = k.pieniadze - ile
-                   k.tax_trans += 1
-                   print("Dziekujemy za wplate.\n")
-    except ValueError:
-        print("Wpisz liczbe")
+            print("Okej.")
+            if (ile > k.pieniadze):
+                print("Nie stac cie by tyle oddac\n")
+            else:    
+                k.pieniadze = k.pieniadze - ile
+                k.tax_trans += 1
+                print("Dziekujemy za wplate.\n")
 
 def kredyt(k: Kasyno):
-    try:
-        if (k.pieniadze > 10001):
-            mozliwosci = [15000, 25000, 50000]
-            print("Okej...")
-            print("Ile chcesz pozyczyc? (15000, 25000, 50000)")
-            ilosc = int(input("Chce pozyczyc: "))
-            if (ilosc in mozliwosci):
-                print(f"Ok, RRSO to {k.rrso_kredyt}%")
-                k.pieniadze = k.pieniadze + ilosc
-                k.dlug = k.dlug + (ilosc * (k.rrso_kredyt / 100 + 1))
-                k.tax_trans += 1
-                print(f"Twoj aktualny dlug to: {round(k.dlug)}\n")
-            else:
-                print("Nie mozesz wyplacic takiej kwoty\n")
+    if (k.pieniadze > 10001):
+        mozliwosci = [15000, 25000, 50000]
+        print("Okej...")
+        print("Ile chcesz pozyczyc? (15000, 25000, 50000)")
+        ilosc = inputint("Chce pozyczyc: ")
+        if (ilosc in mozliwosci):
+            print(f"Ok, RRSO to {k.rrso_kredyt}%")
+            k.pieniadze = k.pieniadze + ilosc
+            k.dlug = k.dlug + (ilosc * (k.rrso_kredyt / 100 + 1))
+            k.tax_trans += 1
+            print(f"Twoj aktualny dlug to: {round(k.dlug)}\n")
         else:
-            print("Nie stac cie na kredyt, potrzebujesz 10001zł.")
-    except ValueError:
-        print("Wpisz liczbe")
+            print("Nie mozesz wyplacic takiej kwoty\n")
+    else:
+        print("Nie stac cie na kredyt, potrzebujesz 10001zł.")
 
 def pozyczka(k: Kasyno):
-    try:
-        if (k.pieniadze < 100):
-            mozliwosci = [500, 1000, 2500, 10000]
-            print("Ile chcesz pozyczyc? (500, 1000, 2500, 10000)")
-            ilosc = int(input("Chce pozyczyc: "))
-            if (ilosc in mozliwosci):
-                print(f"Ok, RRSO to {k.rrso_pozyczka}%")
-                k.pieniadze = k.pieniadze + ilosc
-                k.dlug = k.dlug + (ilosc * (k.rrso_pozyczka / 100 + 1))
-                k.tax_trans += 1
-                print(f"Twoj aktualny dlug to: {round(k.dlug)}\n")
-            else:
-                print("Nie mozesz wyplacic takiej kwoty\n")
+    if (k.pieniadze < 100):
+        mozliwosci = [500, 1000, 2500, 10000]
+        print("Ile chcesz pozyczyc? (500, 1000, 2500, 10000)")
+        ilosc = inputint("Chce pozyczyc: ")
+        if (ilosc in mozliwosci):
+            print(f"Ok, RRSO to {k.rrso_pozyczka}%")
+            k.pieniadze = k.pieniadze + ilosc
+            k.dlug = k.dlug + (ilosc * (k.rrso_pozyczka / 100 + 1))
+            k.tax_trans += 1
+            print(f"Twoj aktualny dlug to: {round(k.dlug)}\n")
         else:
-            print("Ale po co ci pozyczka, idz wydaj to w kasynie\n")
-    except ValueError:
-        print("Wpisz liczbe")
+            print("Nie mozesz wyplacic takiej kwoty\n")
+    else:
+        print("Ale po co ci pozyczka, idz wydaj to w kasynie\n")
 
 def zmien_szanse(k: Kasyno):
     if (500 <= k.realna_szansa <= 1000):
@@ -500,38 +498,38 @@ def zmien_szanse(k: Kasyno):
 def praca(k: Kasyno):
     def oblicz_szanse_dogoniecie():
         if (k.zrecznosc >= 0):
-            return True if (random.randint(1, 3) == 1) else False # 33%
+            return True if (rng(1, 3) == 1) else False # 33%
         elif (k.zrecznosc >= 10):
-            return True if (random.randint(1, 2) == 1) else False # 50%
+            return True if (rng(1, 2) == 1) else False # 50%
         elif (k.zrecznosc >= 25):
-            return True if (random.randint(1, 3) in [1, 2]) else False # 67%
+            return True if (rng(1, 3) in [1, 2]) else False # 67%
         elif (k.zrecznosc >= 50):
-            return True if (random.randint(1, 4) in [1, 2, 3]) else False # 75%
+            return True if (rng(1, 4) in [1, 2, 3]) else False # 75%
         elif (k.zrecznosc >= 100):
-            return True if (random.randint(1, 5) in [1, 2, 3, 4]) else False # 80%
+            return True if (rng(1, 5) in [1, 2, 3, 4]) else False # 80%
     def oblicz_szanse_pobicie():
         if (k.sila >= 0):
-            return True if (random.randint(1, 2) == 1) else False # 50%
+            return True if (rng(1, 2) == 1) else False # 50%
         elif (k.sila >= 10):
-            return True if (random.randint(1, 3) in [1, 2]) else False # 67%
+            return True if (rng(1, 3) in [1, 2]) else False # 67%
         elif (k.sila >= 25):
-            return True if (random.randint(1, 4) in [1, 2, 3]) else False # 75%
+            return True if (rng(1, 4) in [1, 2, 3]) else False # 75%
         elif (k.sila >= 50):
-            return True if (random.randint(1, 5) in [1, 2, 3, 4]) else False # 80%
+            return True if (rng(1, 5) in [1, 2, 3, 4]) else False # 80%
         elif (k.sila >= 100):
-            return True if (random.randint(1, 6) in [1, 2, 3, 4, 5]) else False # 83%
+            return True if (rng(1, 6) in [1, 2, 3, 4, 5]) else False # 83%
     nadgodziny = None
     print(f"Pracujesz u pracodawcy #{k.pracodawca}")
-    if (random.randint(1, 2) == 1):
+    if (rng(1, 2) == 1):
         nadgodziny = True
     else:
         nadgodziny = False
-    time.sleep(8)
+    czekaj(8)
     if (nadgodziny):
         print("Pracujesz na bezpłatne nadgodziny wiec poczekaj jeszcze")
-        time.sleep(4)
-    pieniadze_wypracowane = random.randint(1, 1000)
-    czy_okradnal = True if (random.randint(1, 10) == 1) else False
+        czekaj(4)
+    pieniadze_wypracowane = rng(1, 1000)
+    czy_okradnal = True if (rng(1, 10) == 1) else False
     if (not czy_okradnal):
         if (pieniadze_wypracowane):
             print(f"Ok masz pieniadze ({pieniadze_wypracowane}zł)")
@@ -540,40 +538,43 @@ def praca(k: Kasyno):
         print("XDDD PRACODAWCA CIE OKRADL")
         print("CO ROBISZ")
         odpowiedz = input("Odpowiedz (gonie/nic): ")
-        if (odpowiedz == "gonie"):
-            print("GONISZ PRACODAWCE...")
-            time.sleep(3)
-            udalo_sie = None
-            if (oblicz_szanse_dogoniecie()): 
-                udalo_sie = True 
-            else: 
-                udalo_sie = False
-            if (udalo_sie):
-                print("Udalo sie dogonic pracodawce")
-                co = input("Co z nim robisz/? (bije/konfrontuje): ")
-                print("Bijesz sie z pracodawca...")
-                match (co):
-                    case "bije":
-                        if (oblicz_szanse_pobicie()):
-                            print("Pobiles go!")
-                            k.pieniadze += 5000
-                        else:
-                            print("Nie udalo sie")
-                            k.pieniadze -= 500
-                    case "konfrontuje":
-                        print("Ty: CO TY ZROBILES")
-                        time.sleep(1)
-                        print("*Pracodawca ucieka*")
-                    case _:
-                        print("Nie mozesz tak zrobic, ale uciekl jak cos")
-            else:
-                print("Nie udalo sie")
-                if (k.pieniadze >= 500):
-                    k.pieniadze -= 500
+        match (odpowiedz):
+            case "gonie":
+                print("GONISZ PRACODAWCE...")
+                czekaj(3)
+                udalo_sie = None
+                if (oblicz_szanse_dogoniecie()): 
+                    udalo_sie = True 
+                else: 
+                    udalo_sie = False
+                if (udalo_sie):
+                    print("Udalo sie dogonic pracodawce")
+                    co = input("Co z nim robisz/? (bije/konfrontuje): ")
+                    print("Bijesz sie z pracodawca...")
+                    match (co):
+                        case "bije":
+                            if (oblicz_szanse_pobicie()):
+                                print("Pobiles go!")
+                                k.pieniadze += 5000
+                            else:
+                                print("Nie udalo sie")
+                                k.pieniadze -= 500
+                        case "konfrontuje":
+                            print("Ty: CO TY ZROBILES")
+                            czekaj(1)
+                            print("*Pracodawca ucieka*")
+                        case _:
+                            print("Nie mozesz tak zrobic, ale uciekl jak cos")
                 else:
-                    k.pieniadze = 0
-        elif (odpowiedz == "nic"):
-            print("Ok, pracodawca uciekl.")
+                    print("Nie udalo sie")
+                    if (k.pieniadze >= 500):
+                        k.pieniadze -= 500
+                    else:
+                        k.pieniadze = 0
+            case "nic":
+                print("Ok, pracodawca uciekl.")
+            case _:
+                print("To nie jest odpowiedz ale i tak pracodawca uciekl")
         k.pracodawca += 1
     k.tax_trans += 1
                 
@@ -680,13 +681,13 @@ W momentu niskiego stanu konta, państwo nałoży dług w ilości 1000 złotych.
                         print("ok")
                         break
               case _:
-                time.sleep(1)
+                czekaj(1)
                 print("Procesuje liczbe czekaj")
                 if (k.pieniadze >= 100):
-                    time.sleep(1)
+                    czekaj(1)
                     print("Dobra\n")
-                    time.sleep(1)
-                    if (random.randint(1, k.realna_szansa) != (round(k.realna_szansa * 0.84))):
+                    czekaj(1)
+                    if (rng(1, k.realna_szansa) != (round(k.realna_szansa * 0.84))):
                     # Nie chodzi mi o 84% tylko o domyslne 1/1000 i tak 0.84 jest przypadkowe
                         print("Oj niestety nie wygrales przykro mi")
                         k.pieniadze -= 100
