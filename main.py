@@ -270,15 +270,66 @@ def kungfupanda(k: Kasyno):
                 k.kung_fu_1_raz = False
             else:
                 print("Musisz wybrac poprawnego mistrza!!")
-                k.pieniadze -= 50 # za nieposłuszeństwo
+                if (k.pieniadze >= 50):
+                    k.pieniadze -= 50 # za nieposłuszeństwo
+                else:
+                    k.dlug += 100
         else:
-            print(f"Witaj ponownie. Aktualnie {k.mistrz_kungfu} jest zajęty. Ale zabierzemy 500zł dla zasady.\n")
-            if (k.pieniadze >= 500):
-                k.pieniadze -= 500
+            czy_zajety = True if (random.randint(1, 5) == 3) else False
+            if (czy_zajety):
+                print(f"Witaj ponownie. Aktualnie {k.mistrz_kungfu} jest zajęty. Ale zabierzemy 500zł dla zasady.\n")
+                if (k.pieniadze >= 500):
+                    k.pieniadze -= 500
+                else:
+                    time.sleep(1/3)
+                    print("Oj! Nie masz tyle pieniedzy, nalozymy dlug 1200zł!!")
+                    k.dlug += 1200
             else:
-                time.sleep(1/3)
-                print("Oj! Nie masz tyle pieniedzy, nalozymy dlug 1200zł!!")
-                k.dlug += 1200
+                mozliwe_treningi_sila = [
+                    f"*Nawalasz sie z mistrzem {k.mistrz_kungfu}*",
+                    f"*Bijesz makenina*"
+                ]
+                mozliwe_treningi_zrecznosc = [
+                    f"*Biegniesz za twoim pracodawcom ktury cie okradł*",
+                    f"*Uciekasz przed czyms co cie goni*"
+                ]
+                print("Witaj ponownie! Dzisiaj trenujemy.")
+                time.sleep(0.5)
+                print(f"Masz {k.sila} siły")
+                time.sleep(0.25)
+                print(f"I {k.zrecznosc} zręczności.")
+                time.sleep(1)
+                print("Co dzisiaj chcesz trenować? (S = siła, Z = zręczność)")
+                wybor = input("Trenuje: ")
+                if (wybor in ["S", "Z"]):
+                    if (wybor == "S"):
+                        print("Dobrze, dzisiaj trenujemy siłe.")
+                        print(random.choice(mozliwe_treningi_sila))
+                        udalo_sie = True if (random.randint(1, 10) in [1, 2, 3, 4, 5, 6, 7, 8, 9]) else False
+                        if (udalo_sie):
+                            ile_sily = random.randint(1, 3)
+                            time.sleep(1)
+                            print(f"Dostales {ile_sily} siły!")
+                            k.sila += ile_sily
+                        else:
+                            print("Oj! Oberwales, tracisz siłe")
+                            if (k.sila >= 1):
+                                k.sila -= 1
+                    elif (wybor == "Z"):
+                        print("Dobrze, dzisiaj trenujemy zrecznosc.")
+                        print(random.choice(mozliwe_treningi_zrecznosc))
+                        udalo_sie = True if (random.randint(1, 10) in [1, 2, 3, 4, 5, 6, 7, 8, 9]) else False
+                        if (udalo_sie):
+                            ile_zrecznosci = random.randint(1, 3)
+                            time.sleep(1)
+                            print(f"Dostales {ile_zrecznosci} zręczności!")
+                            k.zrecznosc += ile_zrecznosci
+                        else:
+                            print("Oj! Oberwales, tracisz zrecznosc")
+                            if (k.zrecznosc >= 1):
+                                k.zrecznosc -= 1
+                else:
+                    print("Musisz wybrac poprawny trening!")
 
     except ValueError:
         print("Wpisz liczbe")
