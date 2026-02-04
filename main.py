@@ -20,9 +20,6 @@ class Kasyno:
 
 # FUNCKJE POMOCNICZE
 
-def handle(r: dict[str, callable], w: str, e: callable):
-    return r.get(w, e)()
-
 def inputint(m: str):
     try:
         i = int(input(m))
@@ -752,21 +749,16 @@ def main():
                     k.dlug += 1000
                     print("Nałożono dług 1000 złotych ze względu na brak wystarczającej ilości pieniędzy na koncie, by zapłacić podatki.")
             print("$$$ KASYNO $$$")
-            if (not k.szansa < 9):
+            if (not k.szansa < 10):
                 print(f"Masz szanse 1/{k.szansa}")
             else:
                 print(f"Masz szanse 1/{k.realna_szansa}")
             print("Wybierz sobie liczbe bo to kasyno i jak zgadniesz liczbe 0-9 to wygrasz pieniadze")
             liczba = input("Jaka? (/sklep/gry/inne): ")
-            match (liczba):
-              case "sklep":  
-                main_sklep(k)
-              case "gry":
-                main_gry(k)
-              case "inne":
-                main_inne(k)
-              case _:
-                main_los(k)
+
+            opcje = { "sklep": main_sklep, "gry": main_gry, "inne": main_inne }
+            opcje.get(liczba, main_los)(k)
+
     except KeyboardInterrupt:
         print("Troche smutno ze chcesz opuscic kasyno no ale dobra..")
     except EOFError:
