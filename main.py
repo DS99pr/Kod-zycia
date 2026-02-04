@@ -438,8 +438,7 @@ def lotto(k: Kasyno):
                     print("Oj! Nasz system losowania ma powtorzenia. To nie twoj blad! Sprobuj ponownie.")
                     # Tu niestety nie lochy..
             else:
-                print("Nie mozesz wpisac tych samych liczb w lotto!")
-                lochy()
+                lochy("Wpisales te same liczby w lotto")
         else:
             lochy("Wpisales zla liczbe w lotto.")
     # Wiem ze to wszystko jest koszmarnie napisane ale nwm xd
