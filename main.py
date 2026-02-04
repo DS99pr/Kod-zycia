@@ -1,6 +1,7 @@
 import time
 import random
 import os
+from ext import Wiadomosci
 from collections import Counter
 
 class Kasyno:
@@ -707,6 +708,7 @@ def main_inne(k: Kasyno):
         print("Wpisz 'oddaj' by oddac pieniadze w rece panstwowe")
         print("Wpisz 'praca' by pracowac")
         print("Wpisz 'podatki' by zobaczyc informacje o podatkach.")
+        print("Wpisz 'wygrana' by sprawdzic informacje o wygraniu zycia.")
         print("Wpisz 'splac' by splacic dlug")
         print("Wpisz 'walka' by trenowac sztuki walk")
         co = input(": ")
@@ -717,15 +719,13 @@ def main_inne(k: Kasyno):
             case "praca":
                 praca(k)
             case "podatki":
-                print("""
-Podatki zabierają ci 10% twojego stanu bankowego co 30 transakcji. 
-Sprawdzenie informacji o podatkach NIE liczy się jako transakcja.
-W momentu niskiego stanu konta, państwo nałoży dług w ilości 1000 złotych.
-""")
+                print(Wiadomosci.podatki)
             case "splac":
                 splac(k)
             case "walka":
                 kungfupanda(k)
+            case "wygrana":
+                print(Wiadomosci.wygrana)
             case _:
                 print("ok")
                 break
