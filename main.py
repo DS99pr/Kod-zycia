@@ -37,10 +37,16 @@ def czekaj(ile: float = 1):
 
 
 
-def lochy():
+def lochy(powod: str):
     def forever():
         czekaj(848484)
+    def handle_else():
+        print("Nie mozesz tak zrobic xd")
+        czekaj(2.5)
+        quit()
+        
     os.system("cls" if (os.name == 'nt') else "clear")
+    print(f"{powod}\n")
     print(f"Jesteś w lochach.")
     print("Spotkałeś Maćka. Co robisz?")
     odpowiedz = input("(zagaduje/ignoruje): ")
@@ -68,7 +74,8 @@ def lochy():
                             czekaj(0.5)
                             print("Maciek: Ok")
                             czekaj(5)
-                            print("Przegrales")
+                            print("[Przegrales]")
+                            czekaj(2.5)
                             quit()
                         case 2:
                             print("Ty: Uciekamy stad?")
@@ -77,8 +84,7 @@ def lochy():
                             czekaj(3)
                             print("*Uciekliscie*")
                         case _:
-                            print("Nie")
-                            quit()
+                            handle_else()
                 case 2:
                     print("Ty: Iasfsdjf")
                     czekaj(2)
@@ -102,8 +108,8 @@ def lochy():
                             czekaj(0.5)
                             print("Maciek: No")
                             czekaj(5)
-                            print("Przegrales")
-                            czekaj(0.5)
+                            print("[Przegrales]")
+                            czekaj(2.5)
                             quit()
                         case 2:
                             print("Ty: Dales zla liczbe w lotto??")
@@ -120,26 +126,49 @@ def lochy():
                                     print("Ty: Nie wazne")
                                     czekaj(0.5)
                                     print("*Maciek ci strzela sierpowego i umierasz*")
-                                    czekaj(0.5)
+                                    czekaj(2.5)
                                     quit()
                                 case 2:
                                     print("Ty: No bo ja tez")
                                     czekaj(1)
                                     print("Maciek: XDD")
                                     czekaj(2)
-                                    print("Ty: Uciekamy stad?")
-                                    czekaj(1)
-                                    print("Maciek: Nie.")
-                                    czekaj(3)
-                                    print("*Maciek wzial didiegodo klatki i zaczal cie winogrować* (przegrales)")
-                                    czekaj(0.5)
-                                    quit()
+                                    print("""
+1 - "No"
+2 - "Uciekamy stad?"
+""")
+                                    wybor = inputint("Ktora odpowiedz wybierasz?: ")
+                                    match wybor:
+                                        case 1:
+                                            print("Ty: No")
+                                            czekaj(1)
+                                            print("Maciek: Tak")
+                                            czekaj(1)
+                                            print("Ty: Ok")
+                                            czekaj(1)
+                                            print("Maciek: *zaczyna tanczyc hinduskie tango*")
+                                            czekaj(1)
+                                            print("[Przegrales]")
+                                            czekaj(2.5)
+                                            quit()
+                                        case 2:
+                                            print("Ty: Uciekamy stad?")
+                                            czekaj(1)
+                                            print("Maciek: Nie.")
+                                            czekaj(3)
+                                            print("*Maciek wzial didiegodo klatki i zaczal cie winogrować* (przegrales)")
+                                            czekaj(2.5)
+                                            quit()
+                                        case _:
+                                            handle_else()
                                 case 3:
                                     print("Ty: Uciekamy stad?")
                                     czekaj(1)
                                     print("Maciek: Ta")
                                     czekaj(3)
                                     print("*Uciekliscie*")
+                                case _:
+                                    handle_else()
                         case 3:
                             print("Ty: Uciekamy stad?")
                             czekaj(1)
@@ -147,17 +176,14 @@ def lochy():
                             czekaj(3)
                             print("*Uciekliscie*\n")
                         case _:
-                            print("Niepoprawny wybor xd")
-                            forever()
+                            handle_else()
                 case _:
-                    print("Nie")
-                    quit()
+                    handle_else()
         case ("ignoruje"):
             print("Zignorowales Maćka.")
             forever()
         case _:
-            print("Nie")
-            quit()
+            handle_else()
 
 def ruletka(k: Kasyno):
     POLA_CZERWONE = {1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36}
@@ -410,8 +436,7 @@ def lotto(k: Kasyno):
                 print("Nie mozesz wpisac tych samych liczb w lotto!")
                 lochy()
         else:
-            print('Musisz wpisac poprawna liczbe! Zostajesz wyrzucony przez rząd do lochów')
-            lochy()
+            lochy("Wpisales zla liczbe w lotto.")
     # Wiem ze to wszystko jest koszmarnie napisane ale nwm xd
 
 def splac(k: Kasyno):
