@@ -9,7 +9,6 @@ class Kasyno:
         self.realna_szansa = 1000
         self.szansa = 1000
         self.dlug = 0
-        self.rrso_pozyczka = 20
         self.rrso_kredyt = 200
         self.tax_trans = 0
         self.pracodawca = 1
@@ -17,6 +16,7 @@ class Kasyno:
         self.mistrz_kungfu = ""
         self.sila = 0
         self.zrecznosc = 0
+        self.social_credit = 0
 
 # FUNCKJE POMOCNICZE
 
@@ -35,7 +35,8 @@ def rng(first: int, last: int):
 def czekaj(ile: float = 1):
     time.sleep(ile)
 
-
+def in_range(first: int, last: int, num: float):
+    return True if first <= num <= last else False
 
 def lochy(powod: str):
     def forever():
@@ -44,7 +45,8 @@ def lochy(powod: str):
         print("Nie mozesz tak zrobic xd")
         czekaj(2.5)
         quit()
-        
+    
+    # Kiedys ja to na kotlina przepisze
     os.system("cls" if (os.name == 'nt') else "clear")
     print(f"{powod}\n")
     print(f"Jesteś w lochach.")
@@ -470,6 +472,18 @@ def oddaj(k: Kasyno):
                 k.pieniadze = k.pieniadze - ile
                 k.tax_trans += 1
                 print("Dziekujemy za wplate.\n")
+                if (ile >= 10000):
+                    k.social_credit += 5
+                elif (in_range(5000, 9999, ile)):
+                    k.social_credit += 4
+                elif (in_range(2500, 4999, ile)):
+                    k.social_credit += 3
+                elif (in_range(500, 2499, ile)):
+                    k.social_credit += 2
+                elif (in_range(250, 499, ile)):
+                    k.social_credit += 1
+                # Tak wiem ze tu mozna np zrobic 2x 500 i masz tyle social creditów 
+                # co za 1x 5000 ale nie chce mi sie tego zmienaic 
 
 def kredyt(k: Kasyno):
     if (k.pieniadze > 10001):
@@ -489,14 +503,24 @@ def kredyt(k: Kasyno):
         print("Nie stac cie na kredyt, potrzebujesz 10001zł.")
 
 def pozyczka(k: Kasyno):
+    def calculate_rrso():
+        if (k.social_credit >= 100):
+            return 5
+        elif (in_range(50, 99, k.social_credit)):
+            return 10
+        elif (in_range(10, 49, k.social_credit)):
+            return 15
+        else:
+            return 20
+    rrso = calculate_rrso()
     if (k.pieniadze < 100):
         mozliwosci = [500, 1000, 2500, 10000]
         print("Ile chcesz pozyczyc? (500, 1000, 2500, 10000)")
         ilosc = inputint("Chce pozyczyc: ")
         if (ilosc in mozliwosci):
-            print(f"Ok, RRSO to {k.rrso_pozyczka}%")
+            print(f"Ok, RRSO to {rrso}%")
             k.pieniadze = k.pieniadze + ilosc
-            k.dlug = k.dlug + (ilosc * (k.rrso_pozyczka / 100 + 1))
+            k.dlug = k.dlug + (ilosc * (rrso / 100 + 1))
             k.tax_trans += 1
             print(f"Twoj aktualny dlug to: {round(k.dlug)}\n")
         else:
@@ -505,16 +529,16 @@ def pozyczka(k: Kasyno):
         print("Ale po co ci pozyczka, idz wydaj to w kasynie\n")
 
 def zmien_szanse(k: Kasyno):
-    if (500 <= k.realna_szansa <= 1000):
+    if (in_range(500, 1000, k.realna_szansa)):
         k.szansa = round(k.szansa - 5)
         k.realna_szansa = round(k.realna_szansa - 5)
-    elif (300 <= k.realna_szansa <= 499):
+    elif (in_range(300, 499, k.realna_szansa)):
         k.szansa = round(k.szansa - 4)
         k.realna_szansa = round(k.realna_szansa - 4)
-    elif (200 <= k.realna_szansa <= 299):
+    elif (in_range(200, 299, k.realna_szansa)):
         k.szansa = round(k.szansa - 3)
         k.realna_szansa = round(k.realna_szansa - 3)
-    elif (10 <= k.realna_szansa <= 199):
+    elif (in_range(11, 199, k.realna_szansa)):
         k.szansa = round(k.szansa - 2)
         k.realna_szansa = round(k.realna_szansa - 2)
     else:
