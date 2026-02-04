@@ -38,13 +38,25 @@ def czekaj(ile: float = 1):
 def in_range(first: int, last: int, num: float):
     return True if first <= num <= last else False
 
-def lochy(powod: str):
+def lochy(powod: str, k: Kasyno):
     def forever():
         czekaj(848484)
     def handle_else():
         print("Nie mozesz tak zrobic xd")
         czekaj(2.5)
         quit()
+
+    def oblicz_szanse():
+        if (k.sila >= 100):
+            return True if (random.randint(1, 5) in [1, 2, 3, 4]) else False # 80%
+        elif (in_range(50, 99, k.sila)):
+            return True if (random.randint(1, 4) in [1, 2, 3]) else False # 75%
+        elif (in_range(25, 49, k.sila)):
+            return True if (random.randint(1, 3) in [1, 2]) else False # 66%
+        elif (in_range(10, 24, k.sila)):
+            return True if (random.randint(1, 2) == 1) else False # 50%
+        else:
+            return True if (random.randint(1, 3) == 1) else False # 33%
     
     # Kiedys ja to na kotlina przepisze
     os.system("cls" if (os.name == 'nt') else "clear")
@@ -158,9 +170,14 @@ def lochy(powod: str):
                                             czekaj(1)
                                             print("Maciek: Nie.")
                                             czekaj(3)
-                                            print("*Maciek wzial didiegodo klatki i zaczal cie winogrować* (przegrales)")
-                                            czekaj(2.5)
-                                            quit()
+                                            if (oblicz_szanse()):
+                                                print("*Maciek wzial didiego by cie zwinogronował ale dzieki twojej sile ty zwinogrowales didiego*")
+                                                print("*Uciekles a maciek nie*")
+                                                k.pieniadze += 500
+                                            else:
+                                                print("*Maciek wzial didiegodo klatki i zaczal cie winogrować* (przegrales)")
+                                                czekaj(2.5)
+                                                quit()
                                         case _:
                                             handle_else()
                                 case 3:
@@ -509,8 +526,14 @@ def pozyczka(k: Kasyno):
             return 10
         elif (in_range(10, 49, k.social_credit)):
             return 15
-        else:
+        elif (in_range(0, 9, k.social_credit)):
             return 20
+        elif (in_range(-20, -1, k.social_credit)):
+            return 25
+        elif (in_range(-100, -21, k.social_credit)):
+            return 40
+        else:
+            return 50
     rrso = calculate_rrso()
     if (k.pieniadze < 100):
         mozliwosci = [500, 1000, 2500, 10000]
@@ -735,6 +758,7 @@ def main():
                 print(f"Masz dlug wynoszacy {round(k.dlug)} zlotych. Dlug bedzie automatycznie splacany w kwocie 2% długu przy kazdej transkacji.")
                 if (k.pieniadze < (k.dlug * 0.02)):
                     print("Nie masz pieniedzy na splacenie dlugu, wypozycz wiecej albo sie pozegnaj z mieszkaniem")
+                    k.dlug += 50
                 else:
                     splacono = k.dlug * 0.02
                     k.pieniadze = k.pieniadze - splacono
@@ -745,11 +769,12 @@ def main():
                     # Okej juz dziala ale nie chce mi sie usuwac tych komentarzy
             if (k.tax_trans >= 30):
                 k.tax_trans = 0
-                if (k.pieniadze >= 100):
+                if (k.pieniadze >= 500):
                     k.pieniadze -= k.pieniadze / 10
                     print(f"Zabrano podatek {round(k.pieniadze / 10)}zł. (więcej na inne)")
                 else:
                     k.dlug += 1000
+                    k.social_credit -= 3 # 😡
                     print("Nałożono dług 1000 złotych ze względu na brak wystarczającej ilości pieniędzy na koncie, by zapłacić podatki.")
             print("$$$ KASYNO $$$")
             if (not k.szansa < 10):
