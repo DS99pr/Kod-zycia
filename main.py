@@ -20,6 +20,9 @@ class Kasyno:
 
 # FUNCKJE POMOCNICZE
 
+def handle(r: dict[str, callable], w: str, e: callable):
+    return r.get(w, e)()
+
 def inputint(m: str):
     try:
         i = int(input(m))
@@ -634,7 +637,96 @@ def praca(k: Kasyno):
                 print("To nie jest odpowiedz ale i tak pracodawca uciekl")
         k.pracodawca += 1
     k.tax_trans += 1
-                
+
+def main_sklep(k: Kasyno):
+    while True:
+        print("Witaj w sklepie")
+        print("Wpisz 'szansa' by zwiekszyc swoja szanse w kasynie o 0.5% (za 300zl)")
+        print("Wpisz 'pozyczka' by pozyczyc pieniadze")
+        print("Wpisz 'kredyt' by wziac kredyt")
+        co = input(": ")
+        match (co):
+            case "szansa":
+                if ((k.pieniadze - 300) < 0):
+                    print("Nie stac cie")
+                else:    
+                    print("Ok")
+                    k.pieniadze -= 300
+                    zmien_szanse(k)
+            case "pozyczka":
+                print("Ok")
+                pozyczka(k)
+            case "kredyt":
+                print("Ok")
+                kredyt(k)
+            case _:
+                print("ok")
+                break
+
+def main_gry(k: Kasyno):
+    while True:
+        print("Wpisz 'blackjack' by zagrac w blackjacka (250zl)")
+        print("Wpisz 'ruletka' by zagrac w ruletke (250zl)")
+        print("Wpisz 'lotto' by zagrac w lotto (100zl)")
+        co = input(": ")
+        match (co):
+            case "blackjack":
+                blackjack(k)
+            case "ruletka":
+                ruletka(k)
+            case "lotto":
+                lotto(k)
+            case _:
+                print("ok")
+                break
+               
+def main_inne(k: Kasyno):
+    while True:
+        print("Wpisz 'oddaj' by oddac pieniadze w rece panstwowe")
+        print("Wpisz 'praca' by pracowac")
+        print("Wpisz 'podatki' by zobaczyc informacje o podatkach.")
+        print("Wpisz 'splac' by splacic dlug")
+        print("Wpisz 'walka' by trenowac sztuki walk")
+        co = input(": ")
+        match (co):
+            case "oddaj":
+                print("Oj tak")
+                oddaj(k)
+            case "praca":
+                praca(k)
+            case "podatki":
+                print("""
+Podatki zabierają ci 10% twojego stanu bankowego co 30 transakcji. 
+Sprawdzenie informacji o podatkach NIE liczy się jako transakcja.
+W momentu niskiego stanu konta, państwo nałoży dług w ilości 1000 złotych.
+""")
+            case "splac":
+                splac(k)
+            case "walka":
+                kungfupanda(k)
+            case _:
+                print("ok")
+                break
+
+def main_los(k: Kasyno):
+    czekaj(1)
+    print("Procesuje liczbe czekaj")
+    if (k.pieniadze >= 100):
+        czekaj(1)
+        print("Dobra\n")
+        czekaj(1)
+        if (rng(1, k.realna_szansa) != (round(k.realna_szansa * 0.84))):
+            # Nie chodzi mi o 84% tylko o domyslne 1/1000 i tak 0.84 jest przypadkowe
+            print("Oj niestety nie wygrales przykro mi")
+            k.pieniadze -= 100
+        else:
+            print("O KURDE JACKPOT")
+            k.pieniadze = k.pieniadze + 100000
+            k.realna_szansa += 50
+        k.tax_trans += 1
+    else:
+        print("Nie stac cie juz wiecej na kasyno, wez pozyczke w sklepie")
+
 def main():
     k = Kasyno()
     try:
@@ -669,92 +761,13 @@ def main():
             liczba = input("Jaka? (/sklep/gry/inne): ")
             match (liczba):
               case "sklep":  
-                while True:
-                    print("Witaj w sklepie")
-                    print("Wpisz 'szansa' by zwiekszyc swoja szanse w kasynie o 0.5% (za 300zl)")
-                    print("Wpisz 'pozyczka' by pozyczyc pieniadze")
-                    print("Wpisz 'kredyt' by wziac kredyt")
-                    co = input(": ")
-                    match (co):
-                      case "szansa":
-                        if ((k.pieniadze - 300) < 0):
-                            print("Nie stac cie")
-                        else:    
-                            print("Ok")
-                            k.pieniadze -= 300
-                            zmien_szanse(k)
-                      case "pozyczka":
-                        print("Ok")
-                        pozyczka(k)
-                      case "kredyt":
-                        print("Ok")
-                        kredyt(k)
-                      case _:
-                        print("ok")
-                        break
-              case "wyjdz":
-                quit()
+                main_sklep(k)
               case "gry":
-                while True:
-                    print("Wpisz 'blackjack' by zagrac w blackjacka (250zl)")
-                    print("Wpisz 'ruletka' by zagrac w ruletke (250zl)")
-                    print("Wpisz 'lotto' by zagrac w lotto (100zl)")
-                    co = input(": ")
-                    match (co):
-                      case "blackjack":
-                        blackjack(k)
-                      case "ruletka":
-                        ruletka(k)
-                      case "lotto":
-                        lotto(k)
-                      case _:
-                        print("ok")
-                        break
+                main_gry(k)
               case "inne":
-                while True:
-                    print("Wpisz 'oddaj' by oddac pieniadze w rece panstwowe")
-                    print("Wpisz 'praca' by pracowac")
-                    print("Wpisz 'podatki' by zobaczyc informacje o podatkach.")
-                    print("Wpisz 'splac' by splacic dlug")
-                    print("Wpisz 'walka' by trenowac sztuki walk")
-                    co = input(": ")
-                    match (co):
-                      case "oddaj":
-                        print("Oj tak")
-                        oddaj(k)
-                      case "praca":
-                        praca(k)
-                      case "podatki":
-                        print("""
-Podatki zabierają ci 10% twojego stanu bankowego co 30 transakcji. 
-Sprawdzenie informacji o podatkach NIE liczy się jako transakcja.
-W momentu niskiego stanu konta, państwo nałoży dług w ilości 1000 złotych.
-""")
-                      case "splac":
-                        splac(k)
-                      case "walka":
-                        kungfupanda(k)
-                      case _:
-                        print("ok")
-                        break
+                main_inne(k)
               case _:
-                czekaj(1)
-                print("Procesuje liczbe czekaj")
-                if (k.pieniadze >= 100):
-                    czekaj(1)
-                    print("Dobra\n")
-                    czekaj(1)
-                    if (rng(1, k.realna_szansa) != (round(k.realna_szansa * 0.84))):
-                    # Nie chodzi mi o 84% tylko o domyslne 1/1000 i tak 0.84 jest przypadkowe
-                        print("Oj niestety nie wygrales przykro mi")
-                        k.pieniadze -= 100
-                    else:
-                        print("O KURDE JACKPOT")
-                        k.pieniadze = k.pieniadze + 100000
-                        k.realna_szansa += 50
-                    k.tax_trans += 1
-                else:
-                    print("Nie stac cie juz wiecej na kasyno, wez pozyczke w sklepie")
+                main_los(k)
     except KeyboardInterrupt:
         print("Troche smutno ze chcesz opuscic kasyno no ale dobra..")
     except EOFError:
