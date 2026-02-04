@@ -609,12 +609,15 @@ def praca(k: Kasyno):
                     print("Bijesz sie z pracodawca...")
                     match (co):
                         case "bije":
-                            if (oblicz_szanse_pobicie()):
+                            if (oblicz_szanse_pobicie()): 
                                 print("Pobiles go!")
                                 k.pieniadze += 5000
                             else:
                                 print("Nie udalo sie")
-                                k.pieniadze -= 500
+                                if (k.pieniadze >= 500):
+                                    k.pieniadze -= 500
+                                else:
+                                    k.dlug += 1000
                         case "konfrontuje":
                             print("Ty: CO TY ZROBILES")
                             czekaj(1)
